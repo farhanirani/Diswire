@@ -3,8 +3,6 @@ const cors = require("cors");
 const mysql = require("mysql2");
 require("dotenv").config();
 
-const userRouter = require("./routers/userRouter");
-
 // app config
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -24,7 +22,8 @@ const pool = mysql.createPool({
 });
 const db = pool.promise();
 
-app.use("/", userRouter);
+const routes = require("./routes");
+app.use("/api", routes);
 
 app.listen(PORT, async () => {
   console.log("Server Running on port " + PORT);
