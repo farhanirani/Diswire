@@ -34,4 +34,18 @@ router.get("/messages/group/:id", auth, Message.getGroupChat);
 router.post("/messages/post/:id", auth, Message.postPersonalChat);
 router.post("/messages/postgroup/:id", auth, Message.postGroupChat);
 
+//========================================================================================
+/*                                                                                      *
+ *                              Group Routes
+ *                                                                                      */
+//========================================================================================
+
+const Group = require("./controllers/groupController");
+
+router.post("/group/create", auth, Group.createGroup);
+router.delete("/group/delete/:groupid", auth, Group.deleteGroup);
+router.post("/group/remove/:groupid/:userid", auth, Group.removePerson);
+router.get("/group/groupinvite/:groupid", auth, Group.createInvite);
+router.post("/group/groupinvite/:groupid", auth, Group.joinUsingInvite);
+
 module.exports = router;
