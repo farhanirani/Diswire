@@ -1,0 +1,117 @@
+.chatHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: gray;
+  padding: 3px 10px;
+  font-size: 20px;
+  border-bottom: 2px solid #2c2e31;
+}
+
+.chatHeader-hash {
+  color: #8e9296;
+  font-size: 24px;
+  padding: 8px;
+}
+
+.chatHeader-icon {
+  color: #8e9296;
+  font-size: 24px;
+  padding-top: 11px;
+  padding-bottom: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.chatHeader-left {
+  display: flex;
+  flex: 1;
+}
+
+.chatHeader-left > h3 {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  color: white;
+  font-size: 14px;
+  padding-right: 25px;
+}
+
+.chatHeader-right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chaticons {
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #8e9296;
+}
+
+.chaticons:hover {
+  color: white;
+}
+
+.chatHeader-search {
+  display: flex;
+  align-items: center;
+  color: gray;
+  background-color: #2f3135;
+  border-radius: 3px;
+  padding: 0 3px;
+}
+
+.chatHeader-search > input {
+  background: transparent;
+  outline-width: 0;
+  color: white;
+  border: none;
+}
+
+.friends-nav {
+  display: flex;
+  overflow-x: hidden;
+}
+
+.friends-navitem {
+  font-size: 15px;
+  align-items: center;
+  padding: 5px;
+  margin: 9px;
+  font-weight: 600;
+}
+
+.friends-navitem:hover {
+  color: white;
+  background-color: #40464b;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.friends-navitem.active {
+  color: white;
+  background-color: #40464b;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.friends-navitem.active:hover {
+  cursor: default;
+}
+
+.friends-addfriend {
+  font-size: 15px;
+  align-items: center;
+  padding: 3px 5px;
+  margin: 11px;
+  font-weight: 600;
+  color: white;
+  background-color: #42b680;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.friends-addfriend {
+  cursor: pointer;
+}

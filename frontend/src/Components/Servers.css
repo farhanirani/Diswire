@@ -1,0 +1,297 @@
+:root {
+  --color-grey-dark: #202326;
+  --color-grey-light: #363a3e;
+  --color-grey-channelhover: #393d42;
+  --color-grey-lime: #2c2e31;
+  --color-grey-text: #8e9296;
+  --color-grey-channel: #2f3236;
+  --color-green: #42b680;
+  --color-purple: #7288da;
+}
+
+.servers {
+  position: relative;
+  /* overflow-y: scroll; */
+  background: var(--color-grey-dark);
+  height: 100vh;
+  width: 72px;
+  min-width: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.servers::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.servers {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.server-icons:first-child {
+  margin-top: 13px;
+}
+
+.server-icons {
+  min-width: 50px;
+  min-height: 50px;
+  background: var(--color-grey-light);
+  border-radius: 50%;
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  transition: all 0.25s ease-in-out;
+  cursor: pointer;
+  color: white;
+  position: relative;
+}
+
+.server-icons.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 13px;
+  background: white;
+  height: 46px;
+  transition: all 0.5s ease-in-out;
+  border-radius: 33px;
+  margin-left: -19px;
+}
+
+.server-icons.active:hover::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 13px;
+  background: white;
+  height: 46px;
+  transition: all 0.5s ease-in-out;
+  border-radius: 33px;
+  margin-left: -19px;
+}
+
+.server-icons:hover {
+  border-radius: 37%;
+  background: #7289da;
+}
+
+.server-icons.active {
+  border-radius: 37%;
+  background: #7289da;
+}
+
+.reg-icons {
+  min-width: 50px;
+  min-height: 50px;
+  background: var(--color-grey-light);
+  border-radius: 50%;
+  display: flex;
+  font-size: 30px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  transition: all 0.25s ease-in-out;
+  cursor: pointer;
+  color: var(--color-green);
+  position: relative;
+}
+
+.reg-icons.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 13px;
+  background: white;
+  height: 46px;
+  border-radius: 33px;
+  margin-left: -19px;
+}
+
+.reg-icons:hover {
+  border-radius: 37%;
+  background: var(--color-green);
+  color: white;
+}
+
+.reg-icons.active {
+  border-radius: 37%;
+  background: var(--color-green);
+}
+
+.server-seperator {
+  height: 2px;
+  width: 30px;
+  background: var(--color-grey-light);
+  margin-bottom: 10px;
+  border-radius: 2px;
+}
+
+.server-icons:hover::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 13px;
+  background: white;
+  height: 24px;
+  border-radius: 8px;
+  margin-left: -19px;
+}
+
+.reg-icons:hover::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 11px;
+  background: white;
+  height: 24px;
+  border-radius: 8px;
+  margin-left: -19px;
+}
+
+.tooltip {
+  position: relative;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 150px;
+  background-color: #000000;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 4px;
+  font-size: 16px;
+  font-weight: 700;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  left: 120%;
+  top: 6px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.popup-content {
+  margin: auto;
+  background: rgb(255, 255, 255);
+  width: 420px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.popup-arrow {
+  color: rgb(255, 255, 255);
+}
+[role="tooltip"].popup-content {
+  width: 200px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+}
+
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+[data-popup="tooltip"].popup-overlay {
+  background: transparent;
+}
+
+.modal {
+  font-size: 12px;
+}
+
+.modal > .content {
+  width: 100%;
+  padding: 10px 5px;
+}
+.modal > .actions {
+  width: 100%;
+  padding: 10px 5px;
+  margin: auto;
+  text-align: center;
+}
+
+.create-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-left {
+  flex: 1;
+  align-items: center;
+  text-align: center;
+}
+
+.create-header {
+  font-size: 24px;
+  font-weight: 700;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.create-info {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  color: #8e9296;
+  margin-top: 10px;
+}
+
+.content > h2 {
+  margin-top: 20px;
+  color: gray;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.serv-name {
+  width: 376px;
+  padding: 15px;
+  font-size: 15px;
+  margin: 10px 2px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.checkbox {
+  display: flex;
+  margin-top: 20px;
+}
+
+.check-info {
+  padding-left: 10px;
+  color: #8e9296;
+}
+
+.actions {
+  padding: 10px 0px;
+  justify-content: right;
+}
+
+.create-button {
+  padding: 10px 30px;
+  margin-left: 70%;
+  background-color: #7289da;
+  color: white;
+  border-radius: 3px;
+  border: 0;
+  font-weight: 600;
+}
+
+.create-button:hover {
+  cursor: pointer;
+}
+
+.serv-category {
+  display: flex;
+  flex: 1;
+  width: 98%;
+  padding: 20px;
+}

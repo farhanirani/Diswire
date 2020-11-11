@@ -1,0 +1,171 @@
+.dm-list {
+  overflow-y: scroll;
+  padding: 10px;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.dm-list::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.dm-list {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.friends-header .sidebar-header:hover {
+  cursor: default;
+}
+
+.sidebar-addDM {
+  font-size: 20px;
+}
+
+.sidebar-addDM:hover {
+  cursor: pointer;
+  color: whitesmoke;
+}
+
+.sidebar-voice,
+.sidebar-profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: gray;
+  background-color: #2f3236;
+  padding: 5px;
+  border-top: 1px solid gray;
+}
+
+.sidebar-voiceinfo {
+  flex: 1;
+  padding: 5px;
+}
+
+.sidebar-voiceicon {
+  color: #4fb185;
+}
+
+.sidebar-voiceinfo > h3 {
+  color: #4fb185;
+  font-size: 15px;
+}
+
+.sidebar-voiceinfo > p {
+  font-size: smaller;
+}
+
+.voiceicons {
+  padding: 5px;
+  font-size: 18px;
+}
+
+.sidebar-profileinfo {
+  flex: 1;
+  padding: 5px;
+  font-size: 11px;
+}
+
+.sidebar-profileinfo > h3 {
+  color: white;
+}
+
+.profileicons {
+  padding: 4px;
+  font-size: 20px;
+}
+
+.profileicons:hover {
+  color: white;
+  background-color: #40464b;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.sidebar-profileinfo > p {
+  padding: 2px;
+}
+
+.friends-header {
+  display: flex;
+  max-width: 225px;
+  align-items: center;
+  color: #8e9296;
+  background-color: #2f3236;
+  margin: 10px 10px 0px 10px;
+}
+
+.friends-header.active {
+  color: white;
+  background-color: #40464b;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.friends-header.active {
+  color: white;
+  background-color: #40464b;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.friends-header > h4 {
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.friends-header:hover {
+  color: white;
+  background-color: #40464b;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.friends-icon {
+  padding-top: 8px;
+}
+
+.friends-header > h4:hover {
+  color: white;
+  background-color: #40464b;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.friends-header > h4.active {
+  color: white;
+  background-color: #40464b;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.personal-dm {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  background-color: #2f3236;
+  margin: 5px 0;
+}
+
+.personal-dm > h3 {
+  color: #8e9296;
+  padding-left: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.personal-dm:hover {
+  color: whitesmoke;
+  background-color: #40464b;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.personal-dm > h3:hover {
+  color: white;
+  background-color: #40464b;
+  cursor: pointer;
+  border-radius: 5px;
+}

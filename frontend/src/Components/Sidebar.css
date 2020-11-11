@@ -1,0 +1,115 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  min-width: 240px;
+  height: 100vh;
+  background-color: #2f3236;
+}
+
+.sidebar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #2f3236;
+  color: white;
+  border-bottom: 2px solid #26282c;
+}
+
+.sidebar-top > h3 {
+  font-size: 15px;
+}
+
+.sidebar-channels {
+  flex: 1;
+}
+
+.sidebar-addChannel {
+  cursor: pointer;
+}
+
+.sidebar-addChannel:hover {
+  color: white;
+}
+
+.sidebar-channelsHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  align-items: center;
+  margin: 10px 0px;
+  background-color: #2f3236;
+  color: gray;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+
+.sidebar-header:hover {
+  color: #b6bfbf;
+  cursor: pointer;
+}
+
+.sidebar-voice,
+.sidebar-profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: gray;
+  background-color: #2f3236;
+  padding: 5px;
+  border-top: 1px solid gray;
+}
+
+.sidebar-voiceinfo {
+  flex: 1;
+  padding: 5px;
+}
+
+.sidebar-voiceicon {
+  color: #4fb185;
+}
+
+.sidebar-voiceinfo > h3 {
+  color: #4fb185;
+  font-size: 15px;
+}
+
+.sidebar-voiceinfo > p {
+  font-size: smaller;
+}
+
+.voiceicons {
+  padding: 5px;
+  font-size: 18px;
+}
+
+.sidebar-profileinfo {
+  flex: 1;
+  padding: 5px;
+  font-size: 11px;
+}
+
+.sidebar-profileinfo > h3 {
+  color: white;
+}
+
+.profileicons {
+  padding: 4px;
+  font-size: 13px;
+}
+
+.profileicons:hover {
+  color: white;
+  background-color: #40464b;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.sidebar-profileinfo > p {
+  padding: 2px;
+}

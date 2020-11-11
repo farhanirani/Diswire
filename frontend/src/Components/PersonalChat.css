@@ -1,0 +1,41 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #363a3f;
+  height: 100vh;
+}
+
+.chat-input {
+  color: lightgrey;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 20px;
+  /* border-top: 1px solid gray; */
+  background-color: #424b53;
+}
+
+.chat-input > form > input {
+  padding: 10px;
+  background: transparent;
+  border: none;
+  width: 100%;
+  outline-width: 0;
+  color: white;
+  font-size: large;
+}
+
+.chat-input > form {
+  flex: 1;
+}
+
+.chat-inputbutton {
+  display: none;
+}
+
+.chat-messages {
+  flex: 1;
+}
