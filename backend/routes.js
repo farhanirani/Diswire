@@ -42,10 +42,12 @@ router.post("/messages/postgroup/:id", auth, Message.postGroupChat);
 
 const Group = require("./controllers/groupController");
 
+router.get("/group", auth, Group.getMyGroups);
 router.post("/group/create", auth, Group.createGroup);
 router.delete("/group/delete/:groupid", auth, Group.deleteGroup);
 router.post("/group/remove/:groupid/:userid", auth, Group.removePerson);
 router.get("/group/groupinvite/:groupid", auth, Group.createInvite);
 router.post("/group/groupinvite/:groupid", auth, Group.joinUsingInvite);
+router.patch("/group/changegrouptype", auth, Group.changeGroupType);
 
 module.exports = router;

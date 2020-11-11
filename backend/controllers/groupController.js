@@ -17,13 +17,13 @@ module.exports.createGroup = async (req, res) => {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     if (!verified) return res.json(false);
 
-    const { g_name, g_desc } = req.body;
+    const { g_name, g_desc, g_type } = req.body;
     userid = verified.id;
     channelid = Math.floor(Math.random() * 1000000000);
 
     const querydata = await db.query(
-      "INSERT INTO group_table(g_name, g_desc, g_creator_id, g_channel_id) VALUES (?,?,?,?)",
-      [g_name, g_desc, userid, channelid]
+      "INSERT INTO group_table(g_name, g_desc, g_creator_id, g_channel_id, g_type) VALUES (?,?,?,?,?)",
+      [g_name, g_desc, userid, channelid, g_type]
     );
     // console.log(querydata[0]);
     const newquery = await db.query(
@@ -179,5 +179,61 @@ module.exports.joinUsingInvite = async (req, res) => {
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+//========================================================================================
+/*                                                                                      *
+ *                              user getMyGroups
+ *                                                                                      */
+//========================================================================================
+
+module.exports.getMyGroups = async (req, res) => {
+  const db = req.app.locals.db;
+  try {
+    const token = req.header("x-auth-token");
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if (!verified) return res.json(false);
+
+    const querydata = await db.query(
+      "SELECT g_id, g_name, g_desc, g_members FROM group_table WHERE g_id IN (SELECT groupid FROM group_connections WHERE userid=?) ",
+      [verified.id]
+    );
+
+    res.status(200).send(querydata[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+//========================================================================================
+/*                admin change group type  */
+//========================================================================================
+
+module.exports.changeGroupType = async (req, res) => {
+  const db = req.app.locals.db;
+  try {
+    const token = req.header("x-auth-token");
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if (!verified) return res.json(false);
+    const { groupid, newtype } = req.body;
+    userid = verified.id;
+
+    const checkAdmin = await db.query(
+      "SELECT * FROM group_table WHERE g_id = ?",
+      [groupid]
+    );
+
+    if (!checkAdmin[0][0] || checkAdmin[0][0].g_creator_id != userid) {
+      res.status(401).json("Not authorized!!!!!!!!");
+    } else {
+      const querydata = await db.query(
+        "UPDATE group_table SET g_type = ? WHERE g_id = ?",
+        [newtype, groupid]
+      );
+      res.status(200).json({ message: "Type updated success" });
+    }
+  } catch (err) {
+    res.status(405).json({ error: err.message });
   }
 };
