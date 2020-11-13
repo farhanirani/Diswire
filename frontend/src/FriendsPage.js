@@ -1,16 +1,16 @@
-import React from 'react';
-import './App.css';
-import Servers from './Components/Server'
-import DMList from './Components/DMList'
-import FriendList from './Components/FriendList'
+import React from "react";
+import "./App.css";
+import Servers from "./Components/Server";
+import DMList from "./Components/DMList";
+import FriendList from "./Components/FriendList";
 
 function FriendsPage() {
   return (
-    <div class="app">
+    <div className="app">
       <Servers />
-          <DMList />
-          <FriendList/>
-      </div>
+      <DMList />
+      <FriendList />
+    </div>
   );
 }
 

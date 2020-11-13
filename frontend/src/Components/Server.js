@@ -39,28 +39,28 @@ function Server() {
   };
 
   return (
-    <div class="servers">
-      <a class="tooltip server-icons " href="/@friends">
+    <div className="servers">
+      <a className="tooltip server-icons " href="/@friends">
         <span className="tooltiptext">Home</span>
         <span>Atd</span>
       </a>
-      <div class="server-seperator"></div>
-      <a class="tooltip server-icons active" href="/">
+      <div className="server-seperator"></div>
+      <a className="tooltip server-icons active" href="/">
         <span className="tooltiptext">First Server</span>
         <span>V</span>
       </a>
-      <a class="tooltip server-icons" href="/">
+      <a className="tooltip server-icons" href="/">
         <span className="tooltiptext">Second Server</span>
         <span>V</span>
       </a>
-      <a class="tooltip server-icons" href="/">
+      <a className="tooltip server-icons" href="/">
         <span className="tooltiptext">Third Server</span>
         <span>vs</span>
       </a>
-      <div class="server-seperator"></div>
+      <div className="server-seperator"></div>
       <Popup
         trigger={
-          <div class="tooltip reg-icons">
+          <div className="tooltip reg-icons">
             <span className="tooltiptext">Add a Server</span>
             <span>
               <AddIcon
@@ -178,7 +178,7 @@ function Server() {
           </div>
         )}
       </Popup>
-      <a class="tooltip reg-icons" href="/@explore">
+      <a className="tooltip reg-icons" href="/@explore">
         <span className="tooltiptext">Explore Servers</span>
         <span>
           <ExploreIcon

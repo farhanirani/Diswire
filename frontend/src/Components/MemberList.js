@@ -4,7 +4,7 @@ import Avatar from "@material-ui/core/Avatar";
 
 function MemberList() {
   return (
-    <div class="members">
+    <div className="members">
       <div className="list-header">
         <h4>
           Members-<span className="member-number">5</span>

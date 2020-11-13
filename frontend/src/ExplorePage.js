@@ -1,16 +1,16 @@
-import React from 'react';
-import './App.css';
-import Servers from './Components/Server'
-import DiscoverServer from './Components/DiscoverServer'
-import FeaturedServers from './Components/FeaturedServer'
+import React from "react";
+import "./App.css";
+import Servers from "./Components/Server";
+import DiscoverServer from "./Components/DiscoverServer";
+import FeaturedServers from "./Components/FeaturedServer";
 
 function ExplorePage() {
   return (
-    <div class="app">
+    <div className="app">
       <Servers />
       <DiscoverServer />
       <FeaturedServers />
-      </div>
+    </div>
   );
 }
 
