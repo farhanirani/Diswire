@@ -80,7 +80,11 @@
 
 .sidebar-voiceinfo > h3 {
   color: #4fb185;
-  font-size: 15px;
+  font-size: 12px;
+}
+
+.voice__channel__p {
+  margin-top: -5px;
 }
 
 .sidebar-voiceinfo > p {

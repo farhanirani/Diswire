@@ -70,7 +70,7 @@ function SideBar() {
         <SignalCellularAltIcon className="sidebar-voiceicon" fontSize="large" />
         <div className="sidebar-voiceinfo">
           <h3>Voice Connected</h3>
-          <p>Stream</p>
+          <p className="voice__channel__p">Stream</p>
         </div>
         <div className="sidebar-voiceicons">
           <InfoIcon className="voiceicons" />

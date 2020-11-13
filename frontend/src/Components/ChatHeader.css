@@ -6,6 +6,7 @@
   padding: 3px 10px;
   font-size: 20px;
   border-bottom: 2px solid #2c2e31;
+  min-width: 640px;
 }
 
 .chatHeader-hash {

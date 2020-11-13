@@ -7,6 +7,8 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const currencies = [
   {
@@ -32,6 +34,7 @@ const currencies = [
 ];
 
 function Server() {
+  const history = useHistory();
   const [currency, setCurrency] = React.useState("ERU");
 
   const handleChange = (event) => {
@@ -40,23 +43,39 @@ function Server() {
 
   return (
     <div className="servers">
-      <a className="tooltip server-icons " href="/@friends">
+      <div
+        className="tooltip server-icons "
+        onClick={() => history.push("/channels/@friends")}
+      >
         <span className="tooltiptext">Home</span>
-        <span>Atd</span>
-      </a>
+        <span>@me</span>
+      </div>
+
       <div className="server-seperator"></div>
-      <a className="tooltip server-icons active" href="/">
+      <div
+        className="tooltip server-icons active"
+        onClick={() => history.push("/channels/")}
+      >
         <span className="tooltiptext">First Server</span>
         <span>V</span>
-      </a>
-      <a className="tooltip server-icons" href="/">
+      </div>
+
+      <div
+        className="tooltip server-icons"
+        onClick={() => history.push("/channels/")}
+      >
         <span className="tooltiptext">Second Server</span>
         <span>V</span>
-      </a>
-      <a className="tooltip server-icons" href="/">
-        <span className="tooltiptext">Third Server</span>
-        <span>vs</span>
-      </a>
+      </div>
+
+      <div
+        className="tooltip server-icons"
+        onClick={() => history.push("/channels/")}
+      >
+        <span className="tooltiptext">Second Server</span>
+        <span>V</span>
+      </div>
+
       <div className="server-seperator"></div>
       <Popup
         trigger={
@@ -178,14 +197,17 @@ function Server() {
           </div>
         )}
       </Popup>
-      <a className="tooltip reg-icons" href="/@explore">
+      <div
+        className="tooltip reg-icons"
+        onClick={() => history.push("/channels/@explore")}
+      >
         <span className="tooltiptext">Explore Servers</span>
         <span>
           <ExploreIcon
             style={{ height: "30px", width: "30px", paddingTop: "6px" }}
           />
         </span>
-      </a>
+      </div>
     </div>
   );
 }

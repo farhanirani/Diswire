@@ -9,6 +9,8 @@ import HomePage from "./HomePage";
 import FriendsPage from "./FriendsPage";
 import AddFriendPage from "./AddFriendPage";
 import ExplorePage from "./ExplorePage";
+import CheckUserLoggedInOrNot from "./CheckUserLoggedInOrNot";
+import Redirect from "./Components/Redirect";
 
 function App() {
   const [userData, setUserData] = useState({
@@ -26,32 +28,29 @@ function App() {
       const tokenRes = await axios.post("/api/user/checkToken", null, {
         headers: { "x-auth-token": token },
       });
-      // console.log(tokenRes.data);
+
       if (tokenRes.data) {
-        const userRes = await axios.get("/api/user/", {
-          headers: { "x-auth-token": token },
-        });
         setUserData({
           token,
-          user: userRes.data,
+          user: tokenRes.data,
         });
       }
     };
-
     checkLoggedIn();
   }, []);
 
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ userData, setUserData }}>
+        <CheckUserLoggedInOrNot />
         <Switch>
-          <Route exact path="/" component={ChannelChat} />
-          <Route exact path="/@me" component={HomePage} />
-          <Route exact path="/@friends" component={FriendsPage} />
-          <Route exact path="/@add" component={AddFriendPage} />
-          <Route exact path="/@explore" component={ExplorePage} />
-          {/* <Route exact path="/signup" component={SignUp} />
-          <Route path="/subforum" component={SubForum} /> */}
+          <Route exact path="/channels/@me" component={ChannelChat} />
+          <Route exact path="/channels/@me" component={HomePage} />
+          <Route exact path="/channels/@friends" component={FriendsPage} />
+          <Route exact path="/channels/@add" component={AddFriendPage} />
+          <Route exact path="/channels/@explore" component={ExplorePage} />
+          {/* <Route exact path="/login" component={Login} /> */}
+          <Route path="/" component={Redirect} />
         </Switch>
       </UserContext.Provider>
     </BrowserRouter>

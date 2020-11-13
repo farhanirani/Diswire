@@ -56,34 +56,6 @@ function Chat() {
       m_reciever_id: 1,
       m_sentat: "2020-10-30T06:48:43.000Z",
     },
-    {
-      m_id: 13,
-      m_body: "fuck you",
-      m_sender_id: 2,
-      m_reciever_id: 1,
-      m_sentat: "2020-10-30T06:48:43.000Z",
-    },
-    {
-      m_id: 13,
-      m_body: "fuck you",
-      m_sender_id: 2,
-      m_reciever_id: 1,
-      m_sentat: "2020-10-30T06:48:43.000Z",
-    },
-    {
-      m_id: 13,
-      m_body: "fuck you",
-      m_sender_id: 2,
-      m_reciever_id: 1,
-      m_sentat: "2020-10-30T06:48:43.000Z",
-    },
-    {
-      m_id: 13,
-      m_body: "fuck you",
-      m_sender_id: 2,
-      m_reciever_id: 1,
-      m_sentat: "2020-10-30T06:48:43.000Z",
-    },
   ];
 
   return (
