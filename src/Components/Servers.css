@@ -182,10 +182,6 @@
 
 .popup-content {
   margin: auto;
-  background: rgb(255, 255, 255);
-  width: 420px;
-  padding: 10px;
-  border-radius: 10px;
 }
 .popup-arrow {
   color: rgb(255, 255, 255);
@@ -204,6 +200,12 @@
 
 .modal {
   font-size: 12px;
+  width: 420px;
+  margin: 50px;
+  height: 445px;
+  background: rgb(255, 255, 255);
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .modal > .content {
@@ -213,7 +215,6 @@
 .modal > .actions {
   width: 100%;
   padding: 10px 5px;
-  margin: auto;
   text-align: center;
 }
 
@@ -238,7 +239,6 @@
 
 .create-info {
   text-align: center;
-  display: flex;
   align-items: center;
   color: #8e9296;
   margin-top: 10px;
@@ -252,7 +252,7 @@
 }
 
 .serv-name {
-  width: 376px;
+  width: 91%;
   padding: 15px;
   font-size: 15px;
   margin: 10px 2px;
@@ -272,7 +272,6 @@
 
 .actions {
   padding: 10px 0px;
-  justify-content: right;
 }
 
 .create-button {
@@ -294,4 +293,30 @@
   flex: 1;
   width: 98%;
   padding: 20px;
+}
+
+.join-create {
+  display: flex;
+}
+
+.join-button {
+  padding: 10px 30px;
+  margin-left: 60%;
+  background-color: #7289da;
+  color: white;
+  border-radius: 3px;
+  border: 0;
+  font-weight: 600;
+}
+
+.join-button:hover {
+  cursor: pointer;
+}
+
+.server-links {
+  font-size: 12px;
+  color: #2c2e31;
+  font-weight: 500;
+  padding: 4px;
+  margin: 0;
 }

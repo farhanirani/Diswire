@@ -21,6 +21,10 @@
   font-size: 15px;
 }
 
+.sidebar-top:hover {
+  cursor: pointer;
+}
+
 .sidebar-channels {
   flex: 1;
 }
@@ -112,4 +116,41 @@
 
 .sidebar-profileinfo > p {
   padding: 2px;
+}
+
+.menu {
+  margin-right: 5px;
+  margin-top: 5px;
+  padding: 10px;
+  width: 180px;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  background: #0c0c0c;
+  border-radius: 5px;
+}
+.menu-item-leave {
+  cursor: pointer;
+  color: #f04747;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.menu-item-leave:hover {
+  color: white;
+  background-color: #f04747;
+}
+
+.menu-item {
+  cursor: pointer;
+  color: #b6bfbf;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.menu-item:hover {
+  color: white;
+  background-color: #7289da;
 }
