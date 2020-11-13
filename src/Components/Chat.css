@@ -8,6 +8,7 @@
 .chat-messages {
   flex: 1;
   overflow-y: scroll;
+  /* overflow-y: auto; */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -65,11 +66,6 @@
   display: none;
 }
 
-.chat-messages {
-  flex: 1;
-  overflow-y: auto;
-}
-
 .chatbody {
   display: flex;
   height: 100%;
@@ -80,7 +76,6 @@
   flex: 1;
   flex-direction: column;
   background-color: #363a3f;
-  height: 96%;
   margin: 0;
 }
 
