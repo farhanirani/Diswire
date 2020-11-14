@@ -45,6 +45,7 @@ function SideBar() {
   }, []);
 
   useEffect(() => {
+    console.log(servers);
     for (var i = 0; i < servers.length; i++) {
       if (servers[i].g_id === channelid) {
         setcurrentChannelName(servers[i].g_name);

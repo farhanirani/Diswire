@@ -9,8 +9,10 @@ import HeadsetIcon from "@material-ui/icons/Headset";
 import SettingsIcon from "@material-ui/icons/Settings";
 import PeopleRoundedIcon from "@material-ui/icons/PeopleRounded";
 import AddIcon from "@material-ui/icons/Add";
+import { useHistory } from "react-router-dom";
 
 function DMList() {
+  const history = useHistory();
   return (
     <div className="sidebar">
       <div className="friends-header active">
@@ -28,7 +30,7 @@ function DMList() {
         <AddIcon className="sidebar-addDM" />
       </div>
       <div className="dm-list">
-        <div className="personal-dm">
+        <div className="personal-dm" onClick={() => history.push("@me/123")}>
           <Avatar style={{ height: "30px", width: "30px" }} />
           <h3>fiki</h3>
         </div>
@@ -109,7 +111,7 @@ function DMList() {
         <SignalCellularAltIcon className="sidebar-voiceicon" fontSize="large" />
         <div className="sidebar-voiceinfo">
           <h3>Voice Connected</h3>
-          <p>Stream</p>
+          <p className="voice__channel__p">Stream</p>
         </div>
         <div className="sidebar-voiceicons">
           <InfoIcon className="voiceicons" />
