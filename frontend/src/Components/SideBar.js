@@ -17,6 +17,8 @@ import SecurityIcon from "@material-ui/icons/Security";
 import MeetingRoomTwoToneIcon from "@material-ui/icons/MeetingRoomTwoTone";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useContext } from "react";
+import UserContext from "../context/UserContext";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -26,6 +28,7 @@ function SideBar() {
   const [servers, setServers] = useState([]);
   let token = localStorage.getItem("auth-token");
   const [currentChannelName, setcurrentChannelName] = useState("");
+  const { userData, setUserData } = useContext(UserContext);
 
   useEffect(() => {
     (async () => {
@@ -118,8 +121,8 @@ function SideBar() {
       <div className="sidebar-profile">
         <Avatar style={{ height: "30px", width: "30px" }} />
         <div className="sidebar-profileinfo">
-          <h3>vincent2528</h3>
-          <p>#2513</p>
+          <h3>{userData.user.username}</h3>
+          <p>#{userData.user.userid}</p>
         </div>
         <div className="sidebar-profileicons">
           <MicOffIcon className="profileicons" />

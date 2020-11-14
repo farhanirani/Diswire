@@ -1,4 +1,6 @@
 import React from "react";
+import { useContext } from "react";
+import UserContext from "../context/UserContext";
 import "./DiscoverServer.css";
 import Avatar from "@material-ui/core/Avatar";
 import MicOffIcon from "@material-ui/icons/MicOff";
@@ -12,6 +14,7 @@ import ImportantDevicesIcon from "@material-ui/icons/ImportantDevices";
 import LiveTvIcon from "@material-ui/icons/LiveTv";
 
 function DiscoverServer() {
+  const { userData, setUserData } = useContext(UserContext);
   return (
     <div className="sidebar">
       <div className="sidebar-channels">
@@ -70,8 +73,8 @@ function DiscoverServer() {
       <div className="sidebar-profile">
         <Avatar style={{ height: "30px", width: "30px" }} />
         <div className="sidebar-profileinfo">
-          <h3>vincent2528</h3>
-          <p>#2513</p>
+          <h3>{userData.user.username}</h3>
+          <p>#{userData.user.userid}</p>
         </div>
         <div className="sidebar-profileicons">
           <MicOffIcon className="profileicons" />

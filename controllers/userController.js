@@ -137,7 +137,7 @@ module.exports.sendRequest = async (req, res) => {
 
     // check if there alreacdy is a friend request
     const checkdata = await db.query(
-      "SELECT * FROM personal_connections WHERE (friend_request='P' OR friend_request='R') AND ((userid1=? AND userid2=?) OR (userid1=? AND userid2=?)) ",
+      "SELECT * FROM personal_connections WHERE ((userid1=? AND userid2=?) OR (userid1=? AND userid2=?)) ",
       [req.params.id, verified.id, verified.id, req.params.id]
     );
     // console.log(checkdata[0][0]);
@@ -266,8 +266,8 @@ module.exports.displayFriends = async (req, res) => {
     // console.log(verified);
 
     const querydata = await db.query(
-      "SELECT * FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'A' ",
-      [verified.id, verified.id]
+      "SELECT userid, username FROM user_table WHERE userid!=? AND (userid IN (SELECT userid1 FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'A') OR userid IN (SELECT userid2 FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'A')) ",
+      [verified.id, verified.id, verified.id, verified.id, verified.id]
     );
     // console.log(querydata[0]);
     res.status(200).send(querydata[0]);

@@ -18,7 +18,7 @@ function MemberList() {
       const serverData = await axios.get(`/api/group/users/ ${channelid} `, {
         headers: { "x-auth-token": token },
       });
-      console.log(serverData.data);
+      // console.log(serverData.data);
       setMembers(serverData.data);
     })();
   }, [channelid]);

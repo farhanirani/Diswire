@@ -12,7 +12,7 @@ import ExplorePage from "./ExplorePage";
 import CheckUserLoggedInOrNot from "./CheckUserLoggedInOrNot";
 import Redirect from "./Components/Redirect";
 // import StartPage from './StartPage'
-import LoginPage from './LoginPage'
+import LoginPage from "./LoginPage";
 
 function App() {
   const [userData, setUserData] = useState({

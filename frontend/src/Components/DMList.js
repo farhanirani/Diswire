@@ -12,9 +12,28 @@ import AddIcon from "@material-ui/icons/Add";
 import { useHistory } from "react-router-dom";
 import Popup from "reactjs-popup";
 import MeetingRoomTwoToneIcon from "@material-ui/icons/MeetingRoomTwoTone";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useContext } from "react";
+import UserContext from "../context/UserContext";
+import axios from "axios";
 
 function DMList() {
   const history = useHistory();
+  const [friends, setFriends] = useState([]);
+  const { userData, setUserData } = useContext(UserContext);
+
+  useEffect(() => {
+    (async () => {
+      let token = localStorage.getItem("auth-token");
+      const friendsdata = await axios.get("/api/user/displayFriends", {
+        headers: { "x-auth-token": token },
+      });
+      setFriends(friendsdata.data);
+      // console.log(friendsdata.data);
+    })();
+  }, []);
+
   return (
     <div className="sidebar">
       <div className="friends-header active">
@@ -32,82 +51,17 @@ function DMList() {
         <AddIcon className="sidebar-addDM" />
       </div>
       <div className="dm-list">
-        <div className="personal-dm" onClick={() => history.push("@me/123")}>
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>fiki</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
-        <div className="personal-dm">
-          <Avatar style={{ height: "30px", width: "30px" }} />
-          <h3>vincent2528</h3>
-        </div>
+        {friends.map((friend) => {
+          return (
+            <div
+              className="personal-dm"
+              onClick={() => history.push("/channels/@me/" + friend.userid)}
+            >
+              <Avatar style={{ height: "30px", width: "30px" }} />
+              <h3>{friend.username}</h3>
+            </div>
+          );
+        })}
       </div>
       <div className="sidebar-voice">
         <SignalCellularAltIcon className="sidebar-voiceicon" fontSize="large" />
@@ -123,8 +77,8 @@ function DMList() {
       <div className="sidebar-profile">
         <Avatar style={{ height: "30px", width: "30px" }} />
         <div className="sidebar-profileinfo">
-          <h3>vincent2528</h3>
-          <p>#2513</p>
+          <h3>{userData.user.username}</h3>
+          <p>#{userData.user.userid}</p>
         </div>
         <div className="sidebar-profileicons">
           <MicOffIcon className="profileicons" />
