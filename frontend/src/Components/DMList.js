@@ -9,6 +9,9 @@ import HeadsetIcon from "@material-ui/icons/Headset";
 import SettingsIcon from "@material-ui/icons/Settings";
 import PeopleRoundedIcon from "@material-ui/icons/PeopleRounded";
 import AddIcon from "@material-ui/icons/Add";
+import Popup from "reactjs-popup";
+import MeetingRoomTwoToneIcon from "@material-ui/icons/MeetingRoomTwoTone";
+
 
 function DMList() {
   return (
@@ -125,8 +128,25 @@ function DMList() {
         <div className="sidebar-profileicons">
           <MicOffIcon className="profileicons" />
           <HeadsetIcon className="profileicons" />
-          <SettingsIcon className="profileicons" />
-        </div>
+<Popup
+            trigger={<SettingsIcon className="profileicons" />}
+            position="top"
+            closeOnDocumentClick
+            mouseLeaveDelay={300}
+            mouseEnterDelay={0}
+            contentStyle={{ padding: "0px", border: "none" }}
+            arrow={false}
+          >
+            <div className="menu">
+              <div className="menu-item-leave">
+                Log Out
+                <MeetingRoomTwoToneIcon
+                  style={{ paddingTop: "2px" }}
+                  fontSize="small"
+                />
+              </div>
+            </div>
+          </Popup>        </div>
       </div>
     </div>
   );
