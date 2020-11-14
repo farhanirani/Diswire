@@ -15,14 +15,50 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Popup from "reactjs-popup";
 import SecurityIcon from "@material-ui/icons/Security";
 import MeetingRoomTwoToneIcon from "@material-ui/icons/MeetingRoomTwoTone";
+import { useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 function SideBar() {
+  const history = useHistory();
+  const channelid = window.location.pathname.substring(10);
+  const [servers, setServers] = useState([]);
+  let token = localStorage.getItem("auth-token");
+  const [currentChannelName, setcurrentChannelName] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      let token = localStorage.getItem("auth-token");
+      const serverData = await axios.get("/api/group", {
+        headers: { "x-auth-token": token },
+      });
+      setServers(serverData.data);
+
+      for (var i = 0; i < serverData.data.length; i++) {
+        if (serverData.data[i].g_id === channelid) {
+          setcurrentChannelName(serverData.data[i].g_name);
+          break;
+        }
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    for (var i = 0; i < servers.length; i++) {
+      if (servers[i].g_id === channelid) {
+        setcurrentChannelName(servers[i].g_name);
+        break;
+      }
+    }
+  }, [channelid]);
+
   return (
     <div className="sidebar">
       <Popup
         trigger={
           <div className="sidebar-top">
-            <h3>PyroShin</h3>
+            <h3>{currentChannelName}</h3>
             <ExpandMoreIcon />
           </div>
         }

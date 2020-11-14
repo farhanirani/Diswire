@@ -9,6 +9,8 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const currencies = [
   {
@@ -35,7 +37,21 @@ const currencies = [
 
 function Server() {
   const history = useHistory();
-  const [currency, setCurrency] = React.useState("ERU");
+  const [currency, setCurrency] = useState("ERU");
+  const [servers, setServers] = useState([]);
+  let token = localStorage.getItem("auth-token");
+
+  useEffect(() => {
+    (async () => {
+      let token = localStorage.getItem("auth-token");
+      const serverData = await axios.get("/api/group", {
+        headers: { "x-auth-token": token },
+      });
+
+      // console.log(serverData.data);
+      setServers(serverData.data);
+    })();
+  }, []);
 
   const handleChange = (event) => {
     setCurrency(event.target.value);
@@ -44,37 +60,26 @@ function Server() {
   return (
     <div className="servers">
       <div
-        className="tooltip server-icons "
-        onClick={() => history.push("/channels/@friends")}
+        className="tooltip server-icons active"
+        onClick={() => history.push("/channels/@me")}
       >
         <span className="tooltiptext">Home</span>
         <span>@me</span>
       </div>
 
       <div className="server-seperator"></div>
-      <div
-        className="tooltip server-icons active"
-        onClick={() => history.push("/channels/")}
-      >
-        <span className="tooltiptext">First Server</span>
-        <span>V</span>
-      </div>
 
-      <div
-        className="tooltip server-icons"
-        onClick={() => history.push("/channels/")}
-      >
-        <span className="tooltiptext">Second Server</span>
-        <span>V</span>
-      </div>
-
-      <div
-        className="tooltip server-icons"
-        onClick={() => history.push("/channels/")}
-      >
-        <span className="tooltiptext">Second Server</span>
-        <span>V</span>
-      </div>
+      {servers.map((server) => {
+        return (
+          <div
+            className="tooltip server-icons "
+            onClick={() => history.push("/channels/" + server.g_id)}
+          >
+            <span className="tooltiptext">{server.g_name}</span>
+            <span>{server.g_name.charAt(0).toUpperCase()}</span>
+          </div>
+        );
+      })}
 
       <div className="server-seperator"></div>
       <Popup

@@ -6,18 +6,17 @@ function CheckUserLoggedInOrNot() {
   const history = useHistory();
 
   useEffect(() => {
-    const checkLoggedIn = async () => {
+    (async () => {
       let token = localStorage.getItem("auth-token");
       const tokenRes = await axios.post("/api/user/checkToken", null, {
         headers: { "x-auth-token": token },
       });
 
-      console.log(tokenRes.data);
+      // console.log(tokenRes.data);
       if (!tokenRes.data) {
-        history.push("/login");
+        history.push("/channels/69");
       }
-    };
-    checkLoggedIn();
+    })();
   }, []);
 
   return <></>;

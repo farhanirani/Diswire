@@ -44,11 +44,12 @@ function App() {
       <UserContext.Provider value={{ userData, setUserData }}>
         <CheckUserLoggedInOrNot />
         <Switch>
-          <Route exact path="/channels/@me" component={ChannelChat} />
-          <Route exact path="/channels/@me" component={HomePage} />
-          <Route exact path="/channels/@friends" component={FriendsPage} />
+          <Route exact path="/channels/@me" component={FriendsPage} />
+          <Route path="/channels/@me" component={HomePage} />
           <Route exact path="/channels/@add" component={AddFriendPage} />
           <Route exact path="/channels/@explore" component={ExplorePage} />
+
+          <Route path="/channels/" component={ChannelChat} />
           {/* <Route exact path="/login" component={Login} /> */}
           <Route path="/" component={Redirect} />
         </Switch>
