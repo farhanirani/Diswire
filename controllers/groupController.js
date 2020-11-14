@@ -148,6 +148,41 @@ module.exports.createInvite = async (req, res) => {
 
 //========================================================================================
 /*                                                                                      *
+ *          get getUsersInGroup (anyone in the group can get the all users)
+ *                                                                                      */
+//========================================================================================
+
+module.exports.getUsersInGroup = async (req, res) => {
+  const db = req.app.locals.db;
+
+  try {
+    const token = req.header("x-auth-token");
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if (!verified) return res.json(false);
+    const userid = verified.id;
+    const groupid = req.params.groupid;
+
+    const checkIfInGroup = await db.query(
+      "SELECT * FROM group_connections WHERE userid = ? AND groupid = ? ",
+      [userid, groupid]
+    );
+
+    if (!checkIfInGroup[0][0]) {
+      res.status(401).json("Not authorized!!!!!!!!");
+    } else {
+      const usersdata = await db.query(
+        "SELECT username, userid FROM user_table WHERE userid IN (SELECT userid FROM group_connections WHERE groupid=?) ",
+        [groupid]
+      );
+      res.status(200).json(usersdata[0]);
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+//========================================================================================
+/*                                                                                      *
  *      Join group using invite ( check if the invite is valid, & not in group then add)
  *                                                                                      */
 //========================================================================================
