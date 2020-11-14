@@ -65,7 +65,7 @@ function RegForm() {
               name="submit"
               value="Continue"
             />
-            <a href="#" class="member">Already have an account?</a>
+            <a href="/channels/69" class="member">Already have an account?</a>
           </form>
         </div>
     )

@@ -14,7 +14,7 @@ function CheckUserLoggedInOrNot() {
 
       // console.log(tokenRes.data);
       if (!tokenRes.data) {
-        history.push("/login");
+        history.push("/channels/69");
       }
     })();
   }, []);

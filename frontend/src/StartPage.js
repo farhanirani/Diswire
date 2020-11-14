@@ -8,7 +8,6 @@ function StartPage() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         {/* Google Font */}
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet" />
         {/* Bootstrap CSS */}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossOrigin="anonymous" />
         {/* Custom CSS */}
@@ -17,7 +16,7 @@ function StartPage() {
         <title>HomePage</title>
         <style dangerouslySetInnerHTML={{__html: "\n        * {\n            margin: 0;\n            padding: 0;\n        }\n        li{\n            padding-left: 18px;\n        }\n    \n        li a:hover:not(#special) {\n            text-decoration: underline;\n        } \n    \n        #loginbtn {\n            background-color: white;\n            color: black;\n            margin: 10px 20px;\n            padding: 5px 10px;\n            border-radius: 20px;\n        }\n    \n        #loginbtn:hover {\n            background-color: #529fe2;\n            color: white;\n        }\n    \n        header {\n            background-image: linear-gradient(#1e47fc, #a4b5ff);\n            padding-top: 100px;\n            position: relative;\n            color: white;\n            min-height: 500px;\n        }\n    \n        #img1 {\n            position: absolute;\n            bottom: 0;\n            left: 0;\n            max-width: 40vw;\n            min-width: 300px;\n        }\n    \n        #img2 {\n            position: absolute;\n            bottom: 0;\n            right: 0;\n            max-width: 40vw;\n            min-width: 300px;\n        }\n    \n        #maintitle {\n            text-align: center;\n            position: relative;\n            margin: auto;\n            padding: 30px;\n        }\n        " }} />
         <nav className="navbar navbar-expand-md navbar-dark" style={{paddingLeft: '10%', overflow: 'hidden', fontWeight: 'bold', backgroundColor: '#1e47fc', paddingTop: '20px'}}>
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/channels/69">
             <i className="fab fa-discord" style={{fontSize: '32px'}} id="b1" /><p id="b1">DISWIRE</p></a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
@@ -25,21 +24,21 @@ function StartPage() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent" style={{paddingLeft: '10%', paddingRight: '10%'}}>
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                <a className="nav-link" href="/channels/69">Home <span className="sr-only">(current)</span></a>
               </li>
               <li className="nav-item active">
-                <a className="nav-link" href="#">Why Diswire?</a>
+                <a className="nav-link" href="/channels/69">Why Diswire?</a>
               </li>
               <li className="nav-item active">
-                <a className="nav-link" href="#" id="home">About</a>
+                <a className="nav-link" href="/channels/69" id="home">About</a>
               </li>
             </ul>
             <button className="btn" id="b2">Login</button>
           </div>
         </nav>
         <header>
-          <img id="img2" src="https://discord.com/assets/7b01f72a2054561145b6dd04add417c0.svg" />
-          <img id="img1" src="https://discord.com/assets/e92fcc9ab6e63c1a17e954af347a1f1d.svg" />
+          <img id="img2" alt="test" src="https://discord.com/assets/7b01f72a2054561145b6dd04add417c0.svg" />
+          <img id="img1" alt="hello" src="https://discord.com/assets/e92fcc9ab6e63c1a17e954af347a1f1d.svg" />
           <div id="maintitle">
             <h1>
               <i className="fab fa-discord" style={{marginRight: '10px'}} />DISWIRE
@@ -114,13 +113,13 @@ function StartPage() {
         <section className="container-fluid px-0" id="footer">
           <h3 style={{paddingLeft: '5%', color: '#529fe2', fontWeight: 'bold'}}>Your Place to Talk</h3>
           <div style={{paddingLeft: '5%'}}>
-            <a href="#" style={{color: 'white'}}><i className="fa fa-twitter" style={{fontSize: '24px', paddingRight: '20px'}} /></a>
-            <a href="#" style={{color: 'white'}}><i className="fa fa-instagram" style={{fontSize: '24px', paddingRight: '20px'}} /></a>
-            <a href="#" style={{color: 'white'}}><i className="fa fa-facebook-official" style={{fontSize: '24px', paddingRight: '20px'}} /></a>
-            <a href="#" style={{color: 'white'}}><i className="fa fa-youtube-play" style={{fontSize: '24px', paddingRight: '20px'}} /></a>
+            <a href="/channels/69" style={{color: 'white'}}><i className="fa fa-twitter" style={{fontSize: '24px', paddingRight: '20px'}} /></a>
+            <a href="/channels/69" style={{color: 'white'}}><i className="fa fa-instagram" style={{fontSize: '24px', paddingRight: '20px'}} /></a>
+            <a href="/channels/69" style={{color: 'white'}}><i className="fa fa-facebook-official" style={{fontSize: '24px', paddingRight: '20px'}} /></a>
+            <a href="/channels/69" style={{color: 'white'}}><i className="fa fa-youtube-play" style={{fontSize: '24px', paddingRight: '20px'}} /></a>
           </div>
           <div style={{margin: '20px 5%', height: '2px', backgroundColor: '#529fe2'}} />
-          <div style={{paddingLeft: '5%'}}><a className="navbar-brand" href="#">
+          <div style={{paddingLeft: '5%'}}><a className="navbar-brand" href="/channels/69">
               <i className="fab fa-discord" style={{fontSize: '32px'}} id="b1" />
               <p id="b1">DISWIRE</p>
             </a>

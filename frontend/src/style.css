@@ -6,7 +6,6 @@ body {
   background: url(https://i.redd.it/vda9rbt01en01.png);
   background-attachment: fixed;
   background-size: cover;
-  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 h1 {
@@ -24,7 +23,7 @@ h1 {
 }
 
 .col-md-6 {
-  background:  #23272a;
+  background: #23272a;
   margin-left: 30px;
   margin-right: 30px;
   padding: 20px;
@@ -70,10 +69,7 @@ small {
   font-size: 17px;
   color: white;
 }
-p {
-  font-size: 18px;
-  color: white;
-}
+
 .col-md-8 {
   padding-left: 25px;
 }

@@ -18,9 +18,9 @@ function LogForm() {
                   <span className="input-group-addon"><span className="glyphicon glyphicon-lock" /></span>
                   <input type="password" className="form-control" required name="passid" />
                 </div>
-                <a href="#" className="member">Forgot password?</a>
+                <a href="www.google.com" className="member">Forgot password?</a>
                 <input className="btn btn-info" type="submit" name="submit" defaultValue="Continue" />
-                <label className="label control-label">Need an account? <a href="#" className="member">Register</a></label>
+                <label className="label control-label">Need an account? <a href="/channels/69" className="member">Register</a></label>
               </form>
             </div>
     )

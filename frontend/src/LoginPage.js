@@ -15,7 +15,7 @@ function LoginPage() {
           <div className="navbar-collapse collapse w-80 order-1 order-md-0 dual-collapse2">
             <ul className="navbar-nav mr-auto">
               <div className="navbar-header">
-                <a className="navbar-brand" href="#"><span className="glyphicon glyphicon-king" /> DISWIRE</a>
+                <a className="navbar-brand" href="/channels/69"><span className="glyphicon glyphicon-king" /> DISWIRE</a>
               </div>
             </ul>
           </div>

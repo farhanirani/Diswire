@@ -1,6 +1,5 @@
 import React from "react";
 import "./Chat.css";
-import MemberList from "./MemberList";
 import FriendHeader from "./FriendHeader";
 
 function AddFriend() {

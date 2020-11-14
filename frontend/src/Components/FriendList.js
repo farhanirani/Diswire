@@ -1,23 +1,24 @@
 import React from "react";
 import "./Chat.css";
-import MemberList from "./MemberList";
 import FriendHeader from "./FriendHeader";
 import Avatar from "@material-ui/core/Avatar";
 import ChatBubbleRoundedIcon from '@material-ui/icons/ChatBubbleRounded';
 import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
-import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
+import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
 
-// const useStyles = makeStyles((theme) => ({
-//   wind: {
-//     [theme.breakpoints.between('xs','md')]: {
-//       width:'100%',
-//     },
-//   },
-// }));
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 function FriendList() {
-    // const classes = useStyles();
 
   
   return (
@@ -52,14 +53,15 @@ function FriendList() {
               <h3>pyro</h3>
             </div>
             <div className="info-right">
-              <Tooltip title="Message" placement="top">
-            <div className='friend-action'><ChatBubbleRoundedIcon style={{ height: "22px", width: "22px",paddingTop:'2px',paddingLeft:'2px',paddingRight:'2px'  }} />
+              <Tooltip title="Accept" placement="top">
+            <div className='friend-action'><CheckCircleOutlineIcon style={{ height: "22px", width: "22px",paddingTop:'2px',paddingLeft:'2px',paddingRight:'2px',color:'green'  }} />
               </div>
               </Tooltip>
-              <Tooltip title="More" placement="top">
-            <div className='friend-action'><MoreVertRoundedIcon style={{ height: "22px", width: "22px",paddingTop:'2px',paddingLeft:'2px',paddingRight:'2px' }} />
+              <Tooltip title="Reject" placement="top">
+            <div className='friend-action'><CancelOutlinedIcon style={{ height: "22px", width: "22px",paddingTop:'2px',paddingLeft:'2px',paddingRight:'2px', color:'red'}} />
               </div>
-          </Tooltip>
+              </Tooltip>
+              
               </div>
             </div>
           {/* <img
