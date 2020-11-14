@@ -6,7 +6,6 @@
   padding: 3px 10px;
   font-size: 20px;
   border-bottom: 2px solid #2c2e31;
-  min-width: 640px;
 }
 
 .chatHeader-hash {
@@ -42,6 +41,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 2;
 }
 
 .chaticons {
@@ -72,7 +72,7 @@
 
 .friends-nav {
   display: flex;
-  overflow-x: hidden;
+  z-index: 1;
 }
 
 .friends-navitem {
@@ -107,10 +107,12 @@
   padding: 3px 5px;
   margin: 11px;
   font-weight: 600;
+  min-width: 78px;
   color: white;
   background-color: #42b680;
   border-radius: 5px;
   text-decoration: none;
+  display: block;
 }
 
 .friends-addfriend {

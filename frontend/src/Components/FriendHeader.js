@@ -16,8 +16,7 @@ function FriendHeader() {
           Friends
         </h3>
         <div className="friends-nav">
-          <h3 className="friends-navitem active">Online</h3>
-          <h3 className="friends-navitem">All</h3>
+          <h3 className="friends-navitem active">All</h3>
           <h3 className="friends-navitem">Pending</h3>
           <h3 className="friends-navitem">Blocked</h3>
           <a className="friends-addfriend" href="/channels/@add">

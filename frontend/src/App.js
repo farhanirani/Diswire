@@ -11,6 +11,8 @@ import AddFriendPage from "./AddFriendPage";
 import ExplorePage from "./ExplorePage";
 import CheckUserLoggedInOrNot from "./CheckUserLoggedInOrNot";
 import Redirect from "./Components/Redirect";
+import StartPage from './StartPage'
+import LoginPage from './LoginPage'
 
 function App() {
   const [userData, setUserData] = useState({
@@ -48,6 +50,8 @@ function App() {
           <Route path="/channels/@me" component={HomePage} />
           <Route exact path="/channels/@add" component={AddFriendPage} />
           <Route exact path="/channels/@explore" component={ExplorePage} />
+          <Route exact path="/hello" component={StartPage} />
+          <Route exact path="/login" component={LoginPage} />
 
           <Route path="/channels/" component={ChannelChat} />
           {/* <Route exact path="/login" component={Login} /> */}

@@ -1,4 +1,4 @@
 .app {
   display: flex;
-  overflow-y: hidden;
+  overflow: hidden;
 }
