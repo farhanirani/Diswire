@@ -114,7 +114,6 @@ function Server() {
                 and start talking.
               </p>
               <div className="content">
-                {" "}
                 <h2>SERVER NAME</h2>
                 <input
                   placeholder="Server Name"

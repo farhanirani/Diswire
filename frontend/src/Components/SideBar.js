@@ -36,7 +36,8 @@ function SideBar() {
       setServers(serverData.data);
 
       for (var i = 0; i < serverData.data.length; i++) {
-        if (serverData.data[i].g_id === channelid) {
+        // eslint-disable-next-line
+        if (serverData.data[i].g_id == channelid) {
           setcurrentChannelName(serverData.data[i].g_name);
           break;
         }
@@ -45,9 +46,9 @@ function SideBar() {
   }, []);
 
   useEffect(() => {
-    console.log(servers);
     for (var i = 0; i < servers.length; i++) {
-      if (servers[i].g_id === channelid) {
+      // eslint-disable-next-line
+      if (servers[i].g_id == channelid) {
         setcurrentChannelName(servers[i].g_name);
         break;
       }
