@@ -15,13 +15,11 @@ import MeetingRoomTwoToneIcon from "@material-ui/icons/MeetingRoomTwoTone";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
-import UserContext from "../context/UserContext";
 import axios from "axios";
 
 function DMList() {
   const history = useHistory();
   const [friends, setFriends] = useState([]);
-  const { userData, setUserData } = useContext(UserContext);
 
   useEffect(() => {
     (async () => {
@@ -77,8 +75,8 @@ function DMList() {
       <div className="sidebar-profile">
         <Avatar style={{ height: "30px", width: "30px" }} />
         <div className="sidebar-profileinfo">
-          <h3>{userData.user.username}</h3>
-          <p>#{userData.user.userid}</p>
+          <h3>farhan</h3>
+          <p>#69</p>
         </div>
         <div className="sidebar-profileicons">
           <MicOffIcon className="profileicons" />
