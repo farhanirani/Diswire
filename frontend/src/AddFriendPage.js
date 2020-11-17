@@ -14,6 +14,7 @@ function AddFriendsPage() {
       history.push("/login");
     }
   }, []);
+
   if (token) {
     return (
       <div class="app">

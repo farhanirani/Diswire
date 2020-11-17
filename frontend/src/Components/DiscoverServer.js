@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+
 import { useContext } from "react";
 import "./DiscoverServer.css";
 import Avatar from "@material-ui/core/Avatar";
@@ -13,6 +16,26 @@ import ImportantDevicesIcon from "@material-ui/icons/ImportantDevices";
 import LiveTvIcon from "@material-ui/icons/LiveTv";
 
 function DiscoverServer() {
+  const history = useHistory();
+  const [userinfo, setUserinfo] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      let token = localStorage.getItem("auth-token");
+      const tokenRes = await axios.post("/api/user/checkToken", null, {
+        headers: { "x-auth-token": token },
+      });
+
+      // console.log(tokenRes.data);
+      if (!tokenRes.data) {
+        history.push("/login");
+      } else {
+        setUserinfo(tokenRes.data);
+        console.log(tokenRes.data);
+      }
+    })();
+  }, []);
+
   return (
     <div className="sidebar">
       <div className="sidebar-channels">
@@ -71,8 +94,8 @@ function DiscoverServer() {
       <div className="sidebar-profile">
         <Avatar style={{ height: "30px", width: "30px" }} />
         <div className="sidebar-profileinfo">
-          <h3>asd</h3>
-          <p>#123</p>
+          <h3>{userinfo.username}</h3>
+          <p>#{userinfo.userid}</p>
         </div>
         <div className="sidebar-profileicons">
           <MicOffIcon className="profileicons" />

@@ -28,6 +28,23 @@ function SideBar() {
   let token = localStorage.getItem("auth-token");
   const [currentChannelName, setcurrentChannelName] = useState("");
 
+  const [userinfo, setUserinfo] = useState([]);
+  useEffect(() => {
+    (async () => {
+      let token = localStorage.getItem("auth-token");
+      const tokenRes = await axios.post("/api/user/checkToken", null, {
+        headers: { "x-auth-token": token },
+      });
+
+      // console.log(tokenRes.data);
+      if (!tokenRes.data) {
+        history.push("/login");
+      } else {
+        setUserinfo(tokenRes.data);
+      }
+    })();
+  }, []);
+
   useEffect(() => {
     (async () => {
       let token = localStorage.getItem("auth-token");
@@ -119,8 +136,8 @@ function SideBar() {
       <div className="sidebar-profile">
         <Avatar style={{ height: "30px", width: "30px" }} />
         <div className="sidebar-profileinfo">
-          <h3>farhan</h3>
-          <p>#69</p>
+          <h3>{userinfo.username}</h3>
+          <p>#{userinfo.userid}</p>
         </div>
         <div className="sidebar-profileicons">
           <MicOffIcon className="profileicons" />
