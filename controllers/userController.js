@@ -137,7 +137,7 @@ module.exports.sendRequest = async (req, res) => {
 
     // check if there alreacdy is a friend request
     const checkdata = await db.query(
-      "SELECT * FROM personal_connections WHERE ((userid1=? AND userid2=?) OR (userid1=? AND userid2=?)) ",
+      "SELECT * FROM personal_connections WHERE friend_request!='B' AND ((userid1=? AND userid2=?) OR (userid1=? AND userid2=?)) ",
       [req.params.id, verified.id, verified.id, req.params.id]
     );
     // console.log(checkdata[0][0]);
