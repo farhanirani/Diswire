@@ -27,7 +27,6 @@ function LoginPage() {
 
   return (
     <div>
-      <button onClick={THISFUNCTION}>CLICK ME TO LOGIN</button>
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Login</title>
@@ -38,6 +37,7 @@ function LoginPage() {
         crossOrigin="anonymous"
       />
       <link rel="stylesheet" type="text/css" href="style.css" />
+      <button onClick={THISFUNCTION}>CLICK ME TO LOGIN</button>
       <nav className="navbar navbar-expand-md">
         <div className="navbar-collapse collapse w-80 order-1 order-md-0 dual-collapse2">
           <ul className="navbar-nav mr-auto">

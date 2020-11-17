@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function FriendList() {
+function PendingRequests() {
   const history = useHistory();
   const [userfriends, setuserfriends] = useState([]);
+  const token = localStorage.getItem("auth-token");
 
   useEffect(() => {
     (async () => {
-      const token = localStorage.getItem("auth-token");
-      const tokenRes = await axios.get("/api/user/displayFriends", {
+      const tokenRes = await axios.get("/api/user/friendRequests", {
         headers: { "x-auth-token": token },
       });
 
@@ -36,21 +36,38 @@ function FriendList() {
         history.push("/login");
       } else {
         setuserfriends(tokenRes.data);
-        console.log(tokenRes.data);
       }
     })();
   }, []);
+
+  const accept = async (num) => {
+    const tokenRes = await axios.post("/api/user/acceptFriend/" + num, null, {
+      headers: { "x-auth-token": token },
+    });
+    setuserfriends((userfriends) =>
+      userfriends.filter((userfriends) => userfriends.userid !== num)
+    );
+  };
+
+  const reject = async (num) => {
+    const tokenRes = await axios.post("/api/user/rejectFriend/" + num, null, {
+      headers: { "x-auth-token": token },
+    });
+    setuserfriends((userfriends) =>
+      userfriends.filter((userfriends) => userfriends.userid !== num)
+    );
+  };
 
   return (
     <div className="chat">
       <FriendHeader />
       <div className="chatbody" style={{ padding: "0px 20px" }}>
         <div className="chat-section">
-          <h2 className="fri-info">All Friends - {userfriends.length}</h2>
+          <h2 className="fri-info">Pending Requests - {userfriends.length}</h2>
 
           {userfriends.map((friend) => {
             return (
-              <div className={`friend-item`}>
+              <div className="friend-item" key={friend.userid}>
                 <div
                   className="info-left"
                   onClick={() => history.push("/channels/@me/" + friend.userid)}
@@ -60,39 +77,37 @@ function FriendList() {
                 </div>
                 <div className="info-right">
                   <Tooltip
-                    title="Message"
+                    title="Accept"
                     placement="top"
-                    onClick={() =>
-                      history.push("/channels/@me/" + friend.userid)
-                    }
+                    onClick={() => accept(friend.userid)}
                   >
                     <div className="friend-action">
-                      <ChatBubbleRoundedIcon
+                      <CheckCircleOutlineIcon
                         style={{
                           height: "22px",
                           width: "22px",
                           paddingTop: "2px",
                           paddingLeft: "2px",
                           paddingRight: "2px",
+                          color: "green",
                         }}
                       />
                     </div>
                   </Tooltip>
                   <Tooltip
-                    title="More"
+                    title="Reject"
                     placement="top"
-                    onClick={() =>
-                      history.push("GAITONDE ADD POPUP THAT SAWS REMOVE FRIEND")
-                    }
+                    onClick={() => reject(friend.userid)}
                   >
                     <div className="friend-action">
-                      <MoreVertRoundedIcon
+                      <CancelOutlinedIcon
                         style={{
                           height: "22px",
                           width: "22px",
                           paddingTop: "2px",
                           paddingLeft: "2px",
                           paddingRight: "2px",
+                          color: "red",
                         }}
                       />
                     </div>
@@ -113,4 +128,4 @@ function FriendList() {
   );
 }
 
-export default FriendList;
+export default PendingRequests;

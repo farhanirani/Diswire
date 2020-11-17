@@ -14,7 +14,7 @@ function AddFriend() {
           </p>
           <div className="search-input">
             <form>
-              <input placeholder="Enter a Username#0000" />
+              <input placeholder="Username#1234" />
               <button className="friend-search" type="submit">
                 Send Friend Request
               </button>

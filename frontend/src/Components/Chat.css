@@ -12,11 +12,13 @@
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-.chat-messages::-webkit-scrollbar {
+.chat-messages::-webkit-scrollbar,
+.chat-section::-webkit-scrollbar {
   display: none;
 }
 /* Hide scrollbar for IE, Edge and Firefox */
-.chat-messages {
+.chat-messages,
+.chat-section {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
@@ -37,6 +39,7 @@
   height: calc(100vh - 56px);
   background-color: #363a3f;
   margin: 0;
+  overflow-y: scroll;
 }
 
 .chat-input {
@@ -175,6 +178,7 @@ img {
 .info-left {
   display: flex;
   align-items: center;
+  flex: 1;
 }
 
 .info-left > h3 {

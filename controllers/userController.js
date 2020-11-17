@@ -170,9 +170,10 @@ module.exports.friendRequests = async (req, res) => {
     if (!verified) return res.json(false);
 
     const querydata = await db.query(
-      "SELECT * FROM personal_connections WHERE userid2=? AND friend_request = 'P' ",
-      [verified.id]
+      "SELECT userid, username FROM user_table WHERE userid!=? AND (userid IN (SELECT userid1 FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'P') OR userid IN (SELECT userid2 FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'P')) ",
+      [verified.id, verified.id, verified.id, verified.id, verified.id]
     );
+
     // console.log(querydata[0]);
     res.status(200).send(querydata[0]);
   } catch (err) {

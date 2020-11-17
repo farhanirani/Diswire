@@ -31,12 +31,7 @@ function FriendHeader() {
           >
             Pending
           </h3>
-          <h3
-            className="friends-navitem"
-            onClick={() => history.push("/channels/@blocked")}
-          >
-            Blocked
-          </h3>
+          <h3 className="friends-navitem">Blocked</h3>
           <h3
             className="friends-addfriend"
             onClick={() => history.push("/channels/@add")}

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-import { useContext } from "react";
 import "./DiscoverServer.css";
 import Avatar from "@material-ui/core/Avatar";
 import MicOffIcon from "@material-ui/icons/MicOff";

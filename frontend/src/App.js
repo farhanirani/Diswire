@@ -7,6 +7,7 @@ import ChannelChat from "./ChannelChat";
 import HomePage from "./HomePage";
 import FriendsPage from "./FriendsPage";
 import AddFriendPage from "./AddFriendPage";
+import FriendRequests from "./FriendRequests";
 import ExplorePage from "./ExplorePage";
 import CheckUserLoggedInOrNot from "./CheckUserLoggedInOrNot";
 import Redirect from "./Components/Redirect";
@@ -33,6 +34,7 @@ function App() {
         <Route exact path="/channels/@me" component={FriendsPage} />
         <Route path="/channels/@me" component={HomePage} />
         <Route exact path="/channels/@add" component={AddFriendPage} />
+        <Route exact path="/channels/@pending" component={FriendRequests} />
         <Route exact path="/channels/@explore" component={ExplorePage} />
         {/* <Route exact path="/hello" component={StartPage} /> */}
         <Route exact path="/login" component={LoginPage} />
