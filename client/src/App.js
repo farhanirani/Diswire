@@ -37,8 +37,7 @@ function App() {
         <Route exact path="/channels/@pending" component={FriendRequests} />
         <Route exact path="/channels/@explore" component={ExplorePage} />
         {/* <Route exact path="/hello" component={StartPage} /> */}
-        <Route exact path="/log" component={LogPage} />
-        <Route exact path="/reg" component={LogPage} />
+        <Route exact path="/login" component={LogPage} />
 
         <Route path="/channels/" component={ChannelChat} />
         {/* <Route exact path="/login" component={Login} /> */}
