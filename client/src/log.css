@@ -1,0 +1,107 @@
+.center-content {
+  width: 500px;
+  max-width: 500px;
+  background-color: #36393f;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+}
+
+.brand-logo {
+  color: white;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 22px;
+  position: absolute;
+  top: 3%;
+  left: 2%;
+}
+
+.brand-name {
+  font-weight: 800;
+  padding: 5px;
+}
+
+.brand-logo:hover {
+  cursor: pointer;
+}
+
+.welcome-text {
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  padding-top: 10px;
+  margin-top: 20px;
+  color: white;
+}
+
+.welcome-p {
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  color: rgb(168, 165, 165);
+  padding: 5px;
+}
+
+.uname-label {
+  color: rgb(146, 143, 143);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 0px;
+}
+
+.uname-input {
+  background-color: #e8f0fe;
+  color: rgb(66, 65, 65);
+  flex: 1;
+  height: 30px;
+  width: 95%;
+  padding: 8px;
+  border: 0;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.uname-field {
+  margin: 10px 20px;
+}
+
+.uname-input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.forgot-pass {
+  color: #7288da;
+  padding: 0px 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.forgot-pass:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.need-p {
+  color: #65686d;
+  padding: 0px 20px;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.link-reg {
+  padding-left: 5px;
+  color: #7288da;
+  font-weight: 600;
+}
+
+.link-reg:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

@@ -1,29 +1,39 @@
-import React from 'react'
+import React from "react";
+import Button from "@material-ui/core/Button";
 
 function LogForm() {
-    return (
-        <div className="col-md-6">
-              <h2 className="text-center" style={{color:'grey'}}>Welcome back!</h2>
-              <h3 className="text-center" style={{color: '#c0c0c0', margin: 0, padding: 0, fontSize: '18px', marginBottom: '20px'}}>
-                We're so excited to see you again!
-              </h3>
-              <form name="registration" action="log.php" method="post" onsubmit="return formValidation();">
-                <label className="label control-label">EMAIL</label>
-                <div className="input-group">
-                  <span className="input-group-addon"><span className="glyphicon glyphicon-envelope" /></span>
-                  <input type="email" className="form-control" required name="email" />
-                </div>
-                <label className="label control-label">PASSWORD</label>
-                <div className="input-group">
-                  <span className="input-group-addon"><span className="glyphicon glyphicon-lock" /></span>
-                  <input type="password" className="form-control" required name="passid" />
-                </div>
-                <a href="www.google.com" className="member">Forgot password?</a>
-                <input className="btn btn-info" type="submit" name="submit" defaultValue="Continue" />
-                <label className="label control-label">Need an account? <a href="/channels/69" className="member">Register</a></label>
-              </form>
-            </div>
-    )
+  return (
+    <div className="login-form">
+      <h2 className="welcome-text">Welcome back!</h2>
+      <p className="welcome-p">We're so excited to see you again!</p>
+      <div className="uname-field">
+        <div className="uname-label">EMAIL OR USERNAME</div>
+        <input type="text" name="" id="" className="uname-input" />
+      </div>
+      <div className="uname-field">
+        <div className="uname-label">PASSWORD</div>
+        <input type="password" name="" id="" className="uname-input" />
+      </div>
+      <p className="forgot-pass">Forgot your password?</p>
+      <Button
+        variant="contained"
+        color="primary"
+        style={{
+          background: " #7288da",
+          margin: "20px",
+          marginBottom: "10px",
+          width: "90%",
+          padding: "10px",
+          fontWeight: "600",
+        }}
+      >
+        Login
+      </Button>
+      <p className="need-p">
+        Need an Account?<span className="link-reg">Register</span>
+      </p>
+    </div>
+  );
 }
 
-export default LogForm
+export default LogForm;

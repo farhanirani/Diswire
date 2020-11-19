@@ -11,6 +11,9 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import CancelOutlinedIcon from "@material-ui/icons/CancelOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
+import Popup from "reactjs-popup";
+import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
+import BlockIcon from "@material-ui/icons/Block";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,25 +81,54 @@ function FriendList() {
                       />
                     </div>
                   </Tooltip>
-                  <Tooltip
-                    title="More"
-                    placement="top"
-                    onClick={() =>
-                      history.push("GAITONDE ADD POPUP THAT SAWS REMOVE FRIEND")
+                  <Popup
+                    trigger={
+                      <Tooltip
+                        title="More"
+                        placement="top"
+                        onClick={() =>
+                          history.push(
+                            "GAITONDE ADD POPUP THAT SAWS REMOVE FRIEND"
+                          )
+                        }
+                      >
+                        <div className="friend-action">
+                          <MoreVertRoundedIcon
+                            style={{
+                              height: "22px",
+                              width: "22px",
+                              paddingTop: "2px",
+                              paddingLeft: "2px",
+                              paddingRight: "2px",
+                            }}
+                          />
+                        </div>
+                      </Tooltip>
                     }
+                    position="bottom"
+                    closeOnDocumentClick
+                    mouseLeaveDelay={300}
+                    mouseEnterDelay={0}
+                    contentStyle={{ padding: "0px", border: "none" }}
+                    arrow={false}
                   >
-                    <div className="friend-action">
-                      <MoreVertRoundedIcon
-                        style={{
-                          height: "22px",
-                          width: "22px",
-                          paddingTop: "2px",
-                          paddingLeft: "2px",
-                          paddingRight: "2px",
-                        }}
-                      />
+                    <div className="menu">
+                      <div className="menu-item">
+                        Block Friend
+                        <BlockIcon
+                          style={{ paddingTop: "2px" }}
+                          fontSize="small"
+                        />
+                      </div>
+                      <div className="menu-item-leave">
+                        Remove Friend
+                        <RemoveCircleIcon
+                          style={{ paddingTop: "2px" }}
+                          fontSize="small"
+                        />
+                      </div>
                     </div>
-                  </Tooltip>
+                  </Popup>
                 </div>
               </div>
             );

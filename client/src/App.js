@@ -12,7 +12,7 @@ import ExplorePage from "./ExplorePage";
 import CheckUserLoggedInOrNot from "./CheckUserLoggedInOrNot";
 import Redirect from "./Components/Redirect";
 // import StartPage from './StartPage'
-import LoginPage from "./LoginPage";
+import LogPage from "./LogPage";
 
 function App() {
   const token = localStorage.getItem("auth-token");
@@ -37,7 +37,7 @@ function App() {
         <Route exact path="/channels/@pending" component={FriendRequests} />
         <Route exact path="/channels/@explore" component={ExplorePage} />
         {/* <Route exact path="/hello" component={StartPage} /> */}
-        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/login" component={LogPage} />
 
         <Route path="/channels/" component={ChannelChat} />
         {/* <Route exact path="/login" component={Login} /> */}

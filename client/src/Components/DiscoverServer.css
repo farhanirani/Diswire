@@ -102,6 +102,7 @@
 .server-info:hover {
   background-color: #40464b;
   color: white;
+  cursor: pointer;
 }
 
 .server-icon {
