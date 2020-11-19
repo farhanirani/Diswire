@@ -3,7 +3,6 @@ import SpaIcon from "@material-ui/icons/Spa";
 import LogForm from "./Components/LogForm";
 import RegForm from "./Components/RegForm";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
