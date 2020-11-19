@@ -105,3 +105,11 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
+.txtfield {
+  border-color: black;
+}
+
+.txtfield:focus {
+  border-color: black;
+}
