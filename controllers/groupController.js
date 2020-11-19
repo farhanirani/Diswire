@@ -138,7 +138,7 @@ module.exports.createInvite = async (req, res) => {
     if (!checkIfInGroup[0][0]) {
       res.status(401).json("Not authorized!!!!!!!!");
     } else {
-      var enc = btoa(groupid);
+      var enc = "ZZ8KUFM3HJ" + btoa(groupid);
       res.status(200).json({ invite: enc });
     }
   } catch (err) {
@@ -195,9 +195,9 @@ module.exports.joinUsingInvite = async (req, res) => {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     if (!verified) return res.json(false);
     const userid = verified.id;
-    const encoded = req.params.groupid;
+    const encoded = req.params.groupid.substring(10);
     var groupid = atob(encoded);
-
+    console.log(groupid);
     const checkIfInGroup = await db.query(
       "SELECT * FROM group_connections WHERE userid = ? AND groupid = ? ",
       [userid, groupid]
