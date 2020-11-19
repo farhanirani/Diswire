@@ -145,3 +145,35 @@
   cursor: pointer;
   border-radius: 5px;
 }
+
+.menu-item-url {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+
+.url-input {
+  display: flex;
+  flex: 1;
+  border: 0;
+  margin: 0;
+  padding: 5px;
+  outline-width: 0;
+}
+
+.url-input:focus {
+  border: 0;
+  margin: 0;
+}
+
+.url-submit {
+  padding: 4px;
+  outline-width: 0;
+}
+
+.url-label {
+  color: #8e9296;
+  font-size: 14px;
+  padding: 0px 5px;
+}

@@ -89,7 +89,31 @@ function DMList() {
         </div>
       </div>
       <div className="sidebar-profile">
-        <Avatar style={{ height: "30px", width: "30px" }} />
+        <Popup
+          trigger={<Avatar style={{ height: "30px", width: "30px" }} />}
+          position="top left"
+          closeOnDocumentClick
+          mouseLeaveDelay={300}
+          mouseEnterDelay={0}
+          contentStyle={{ padding: "0px", border: "none" }}
+          arrow={false}
+        >
+          <div className="menu" style={{ width: "400px" }}>
+            <div>
+              <p className="url-label">Add a Profile Avatar-</p>
+            </div>
+            <div className="menu-item-url">
+              <input
+                type="text"
+                placeholder="Enter URL of the image"
+                className="url-input"
+              />
+              <button type="submit" className="url-submit">
+                Submit
+              </button>
+            </div>
+          </div>
+        </Popup>
         <div className="sidebar-profileinfo">
           <h3>{userinfo.username}</h3>
           <p>#{userinfo.userid}</p>
