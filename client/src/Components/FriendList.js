@@ -58,7 +58,10 @@ function FriendList() {
                   className="info-left"
                   onClick={() => history.push("/channels/@me/" + friend.userid)}
                 >
-                  <Avatar style={{ height: "30px", width: "30px" }} />
+                  <Avatar
+                    style={{ height: "30px", width: "30px" }}
+                    src={friend.profile_pic}
+                  />
                   <h3>{friend.username}</h3>
                 </div>
                 <div className="info-right">

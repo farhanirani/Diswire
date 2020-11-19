@@ -18,8 +18,10 @@ router.post("/user/sendRequest/:id", auth, User.sendRequest);
 router.get("/user/friendRequests", auth, User.friendRequests);
 router.post("/user/acceptFriend/:id", auth, User.acceptFriendReq);
 router.post("/user/rejectFriend/:id", auth, User.rejectFriendReq);
+router.patch("/user/updatePP", auth, User.updatePP);
 
 router.post("/user/checkToken", User.checkToken);
+router.get("/user/getusername/:userid", User.getusername);
 
 //========================================================================================
 /*                                                                                      *

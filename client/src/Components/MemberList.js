@@ -20,7 +20,7 @@ function MemberList() {
       // check this
       // console.log(serverData.data);
       if (serverData.data) {
-        // console.log(serverData.data);
+        console.log(serverData.data);
         setMembers(serverData.data);
       } else {
         alert("does not exist lol");
@@ -43,7 +43,10 @@ function MemberList() {
                 history.push("/channels/@me/" + member.userid);
               }}
             >
-              <Avatar style={{ height: "30px", width: "30px" }} />
+              <Avatar
+                style={{ height: "30px", width: "30px" }}
+                src={member.profile_pic}
+              />
               <h3>{member.username}</h3>
             </div>
           );

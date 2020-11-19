@@ -15,16 +15,12 @@ import StartPage from "./StartPage";
 import LogPage from "./LogPage";
 
 function App() {
-  const token = localStorage.getItem("auth-token");
+  const ttt = localStorage.getItem("auth-token");
 
   useEffect(() => {
-    const checkLoggedIn = async () => {
-      if (token === null) {
-        localStorage.setItem("auth-token", "");
-        token = "";
-      }
-    };
-    checkLoggedIn();
+    if (ttt === null) {
+      localStorage.setItem("auth-token", "");
+    }
   }, []);
 
   return (
@@ -38,11 +34,8 @@ function App() {
         <Route exact path="/channels/@explore" component={ExplorePage} />
         <Route exact path="/hello" component={StartPage} />
         <Route exact path="/reg" component={LogPage} />
-        {/* <Route exact path="/hello" component={StartPage} /> */}
         <Route exact path="/login" component={LogPage} />
-
         <Route path="/channels/" component={ChannelChat} />
-        {/* <Route exact path="/login" component={Login} /> */}
         <Route path="/" component={Redirect} />
       </Switch>
     </BrowserRouter>

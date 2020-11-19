@@ -6,7 +6,7 @@ import MemberList from "./MemberList";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-function Chat() {
+function ChanChat() {
   const [userchatting, setUserchatting] = useState("");
   const [messages, setmessages] = useState([]);
   const channelid = window.location.pathname.substring(10);
@@ -124,4 +124,4 @@ function Chat() {
   );
 }
 
-export default Chat;
+export default ChanChat;

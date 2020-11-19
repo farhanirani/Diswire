@@ -30,6 +30,51 @@ module.exports.checkToken = async (req, res) => {
 
 //========================================================================================
 /*                                                                                      *
+ *                              User get username
+ *                                                                                      */
+//========================================================================================
+
+module.exports.getusername = async (req, res) => {
+  const db = req.app.locals.db;
+  try {
+    const user = await db.query(
+      "SELECT username FROM user_table WHERE userid=? ",
+      [req.params.userid]
+    );
+    if (!user[0][0]) return res.json(false);
+    return res.status(200).json(user[0][0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+//========================================================================================
+/*                                                                                      *
+ *                              User update profile pic
+ *                                                                                      */
+//========================================================================================
+
+module.exports.updatePP = async (req, res) => {
+  const db = req.app.locals.db;
+  const { profile_pic } = req.body;
+  // console.log(profile_pic);
+  try {
+    const token = req.header("x-auth-token");
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if (!verified) return res.json(false);
+
+    db.query("update user_table set profile_pic = ? where userid = ?", [
+      profile_pic,
+      verified.id,
+    ]);
+    res.status(200).send({ message: "friend request Sent" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+//========================================================================================
+/*                                                                                      *
  *                              User Register
  *                                                                                      */
 //========================================================================================
@@ -170,7 +215,7 @@ module.exports.friendRequests = async (req, res) => {
     if (!verified) return res.json(false);
 
     const querydata = await db.query(
-      "SELECT userid, username FROM user_table WHERE userid!=? AND (userid IN (SELECT userid1 FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'P') OR userid IN (SELECT userid2 FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'P')) ",
+      "SELECT userid, username, profile_pic FROM user_table WHERE userid!=? AND (userid IN (SELECT userid1 FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'P') OR userid IN (SELECT userid2 FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'P')) ",
       [verified.id, verified.id, verified.id, verified.id, verified.id]
     );
 
@@ -267,7 +312,7 @@ module.exports.displayFriends = async (req, res) => {
     // console.log(verified);
 
     const querydata = await db.query(
-      "SELECT userid, username FROM user_table WHERE userid!=? AND (userid IN (SELECT userid1 FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'A') OR userid IN (SELECT userid2 FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'A')) ",
+      "SELECT userid, username, profile_pic FROM user_table WHERE userid!=? AND (userid IN (SELECT userid1 FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'A') OR userid IN (SELECT userid2 FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'A')) ",
       [verified.id, verified.id, verified.id, verified.id, verified.id]
     );
     // console.log(querydata[0]);

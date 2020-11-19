@@ -20,10 +20,11 @@ function DMList() {
   const history = useHistory();
   const [friends, setFriends] = useState([]);
   const [userinfo, setUserinfo] = useState([]);
+  const [URL, setURL] = useState("");
+  const token = localStorage.getItem("auth-token");
 
   useEffect(() => {
     (async () => {
-      let token = localStorage.getItem("auth-token");
       const tokenRes = await axios.post("/api/user/checkToken", null, {
         headers: { "x-auth-token": token },
       });
@@ -39,7 +40,6 @@ function DMList() {
 
   useEffect(() => {
     (async () => {
-      let token = localStorage.getItem("auth-token");
       const friendsdata = await axios.get("/api/user/displayFriends", {
         headers: { "x-auth-token": token },
       });
@@ -47,6 +47,28 @@ function DMList() {
       // console.log(friendsdata.data);
     })();
   }, []);
+
+  const handlePP = async (e) => {
+    e.preventDefault();
+    if (URL != "") {
+      try {
+        console.log(URL);
+        axios.patch(
+          "/api/user/updatePP",
+          {
+            profile_pic: URL,
+          },
+          {
+            headers: { "x-auth-token": token },
+          }
+        );
+      } catch (err) {
+        console.log(err.response.data.msg);
+        alert(err.response.data.msg);
+      }
+    }
+    setURL("");
+  };
 
   return (
     <div className="sidebar">
@@ -71,7 +93,11 @@ function DMList() {
               className="personal-dm"
               onClick={() => history.push("/channels/@me/" + friend.userid)}
             >
-              <Avatar style={{ height: "30px", width: "30px" }} />
+              <Avatar
+                style={{ height: "30px", width: "30px" }}
+                src={friend.profile_pic}
+              />
+
               <h3>{friend.username}</h3>
             </div>
           );
@@ -90,7 +116,12 @@ function DMList() {
       </div>
       <div className="sidebar-profile">
         <Popup
-          trigger={<Avatar style={{ height: "30px", width: "30px" }} />}
+          trigger={
+            <Avatar
+              style={{ height: "30px", width: "30px" }}
+              src={userinfo.profile_pic}
+            />
+          }
           position="top left"
           closeOnDocumentClick
           mouseLeaveDelay={300}
@@ -100,15 +131,17 @@ function DMList() {
         >
           <div className="menu" style={{ width: "400px" }}>
             <div>
-              <p className="url-label">Add a Profile Avatar-</p>
+              <p className="url-label">Add Profile Image URL-</p>
             </div>
             <div className="menu-item-url">
               <input
                 type="text"
                 placeholder="Enter URL of the image"
                 className="url-input"
+                onChange={(e) => setURL(e.target.value)}
+                value={URL}
               />
-              <button type="submit" className="url-submit">
+              <button type="submit" className="url-submit" onClick={handlePP}>
                 Submit
               </button>
             </div>

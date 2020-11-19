@@ -171,7 +171,7 @@ module.exports.getUsersInGroup = async (req, res) => {
       res.status(401).json("Not authorized!!!!!!!!");
     } else {
       const usersdata = await db.query(
-        "SELECT username, userid FROM user_table WHERE userid IN (SELECT userid FROM group_connections WHERE groupid=?) ",
+        "SELECT username, userid, profile_pic FROM user_table WHERE userid IN (SELECT userid FROM group_connections WHERE groupid=?) ",
         [groupid]
       );
       res.status(200).json(usersdata[0]);

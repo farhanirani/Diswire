@@ -1,49 +1,120 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./PersonalChat.css";
-import PersonalChatHeader from "./PersonalChatHeader";
 import Message from "./Message";
+import PersonalChatHeader from "./PersonalChatHeader";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 function PersonalChat() {
-  const messages = [
-    {
-      m_id: 2,
-      m_body: "message test 1 2",
-      m_sender_id: 1,
-      m_reciever_id: 2,
-      m_sentat: "2020-10-12T07:35:53.000Z",
-    },
-    {
-      m_id: 4,
-      m_body: "message test 2 1",
-      m_sender_id: 2,
-      m_reciever_id: 1,
-      m_sentat: "2020-10-12T07:35:53.000Z",
-    },
-    {
-      m_id: 7,
-      m_body: "message test1 2",
-      m_sender_id: 1,
-      m_reciever_id: 2,
-      m_sentat: "2020-10-12T07:36:24.000Z",
-    },
-  ];
+  const [userchatting, setUserchatting] = useState("");
+  const otheruserid = window.location.pathname.substring(14);
+  const [messages, setmessages] = useState([]);
+  const token = localStorage.getItem("auth-token");
+  const [message, setMessage] = useState("");
+  const history = useHistory();
+  const [userinfo, setUserinfo] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      let token = localStorage.getItem("auth-token");
+      const tokenRes = await axios.post("/api/user/checkToken", null, {
+        headers: { "x-auth-token": token },
+      });
+
+      // console.log(tokenRes.data);
+      if (!tokenRes.data) {
+        history.push("/login");
+      } else {
+        setUserinfo(tokenRes.data);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    try {
+      (async () => {
+        const tokenRes = await axios.get(
+          "/api/messages/personal/" + otheruserid,
+          {
+            headers: { "x-auth-token": token },
+          }
+        );
+        setmessages(tokenRes.data);
+
+        const otheruserres = await axios.get(
+          "/api/user/getusername/" + otheruserid
+        );
+        setUserchatting(otheruserres.data.username);
+      })();
+    } catch (err) {
+      console.log(err.response.data.msg);
+      alert(err.response.data.msg);
+    }
+  }, [otheruserid]);
+
+  const scrollToBottom = (e) => {
+    setTimeout(() => {
+      console.log("World!");
+    }, 50);
+    var elem = document.getElementById("scrolldiv");
+    elem.scrollTop = elem.scrollHeight;
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      axios.post(
+        "/api/messages/post/" + otheruserid,
+        {
+          messagedata: message,
+        },
+        {
+          headers: { "x-auth-token": token },
+        }
+      );
+      setmessages([
+        ...messages,
+        {
+          m_id: 100 + Math.floor(Math.random() * 101),
+          m_body: message,
+          m_sender_id: userinfo.userid,
+          m_sentat: "now",
+          username: userinfo.username,
+        },
+      ]);
+    } catch (err) {
+      console.log(err.response.data.msg);
+      alert(err.response.data.msg);
+    }
+    scrollToBottom();
+    setMessage("");
+  };
 
   return (
     <div className="chat">
-      <PersonalChatHeader />
-      <div className="chat-messages">
+      <PersonalChatHeader otheruser={userchatting} />
+      <div className="chat-messages" id="scrolldiv">
         {messages.map((message) => (
           <Message
             key={message.m_id}
             body={message.m_body}
-            sentby={message.m_sender_id}
+            sentby={message.username}
+            sentbyid={message.m_sender_id}
             timestamp={message.m_sentat}
           />
         ))}
       </div>
       <div className="chat-input">
-        <form>
-          <input placeholder="Message General" />
+        <form onSubmit={handleSubmit}>
+          <input
+            placeholder="Message General"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
           <button className="chat-inputbutton" type="submit">
             Send
           </button>

@@ -17,7 +17,7 @@ module.exports.getPersonalChat = async (req, res) => {
     id2 = req.params.id;
 
     const querydata = await db.query(
-      "SELECT * FROM messages_personal WHERE (m_sender_id = ? AND m_reciever_id = ?) OR (m_sender_id = ? AND m_reciever_id = ?)",
+      "SELECT * FROM messages_personal, user_table WHERE (userid=m_sender_id ) AND ((m_sender_id = ? AND m_reciever_id = ?) OR (m_sender_id = ? AND m_reciever_id = ?)) ORDER BY m_id ASC",
       [id1, id2, id2, id1]
     );
     res.status(200).json(querydata[0]);

@@ -91,7 +91,10 @@ function DiscoverServer() {
         </div>
       </div>
       <div className="sidebar-profile">
-        <Avatar style={{ height: "30px", width: "30px" }} />
+        <Avatar
+          style={{ height: "30px", width: "30px" }}
+          src={userinfo.profile_pic}
+        />
         <div className="sidebar-profileinfo">
           <h3>{userinfo.username}</h3>
           <p>#{userinfo.userid}</p>
