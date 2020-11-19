@@ -52,7 +52,7 @@ module.exports.getGroupChat = async (req, res) => {
       res.status(401).json("Not authorized!!!!!!!!");
     } else {
       const querydata = await db.query(
-        "SELECT * FROM messages_group WHERE m_group_id = ?",
+        "SELECT * FROM messages_group,user_table WHERE m_group_id = ? AND userid = m_sender_id",
         [groupid]
       );
       res.status(200).json(querydata[0]);

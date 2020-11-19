@@ -2,7 +2,7 @@ import { Avatar } from "@material-ui/core";
 import React from "react";
 import "./Message.css";
 
-function Message({ body, sentby, timestamp }) {
+function Message({ body, sentby, sentbyid, timestamp }) {
   return (
     <div className="message">
       <Avatar />

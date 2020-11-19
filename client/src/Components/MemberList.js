@@ -10,16 +10,22 @@ function MemberList() {
   const history = useHistory();
   const channelid = window.location.pathname.substring(10);
   const [members, setMembers] = useState([]);
-  let token = localStorage.getItem("auth-token");
+  const token = localStorage.getItem("auth-token");
 
   useEffect(() => {
     (async () => {
-      let token = localStorage.getItem("auth-token");
       const serverData = await axios.get(`/api/group/users/ ${channelid} `, {
         headers: { "x-auth-token": token },
       });
+      // check this
       // console.log(serverData.data);
-      setMembers(serverData.data);
+      if (serverData.data) {
+        // console.log(serverData.data);
+        setMembers(serverData.data);
+      } else {
+        alert("does not exist lol");
+        history.push("/channels/@me");
+      }
     })();
   }, [channelid]);
 
