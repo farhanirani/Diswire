@@ -12,11 +12,10 @@
 
 .body-center {
   min-width: 100%;
-  min-height: 100%;
-  background-color: red;
-  /* background: url(https://i.redd.it/vda9rbt01en01.png);
+  height: 100vh;
+  background: url(https://i.redd.it/vda9rbt01en01.png);
   background-attachment: fixed;
-  background-size: cover; */
+  background-size: cover;
 }
 
 .brand-logo {

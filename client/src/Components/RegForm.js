@@ -119,7 +119,7 @@ function RegForm() {
         Register
       </Button>
       <p className="need-p" style={{ marginBottom: "20px" }}>
-        <span className="link-reg" onClick={() => history.push("/log")}>
+        <span className="link-reg" onClick={() => history.push("/login")}>
           Already have an Account?
         </span>
       </p>
