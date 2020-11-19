@@ -7,8 +7,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function LogPage() {
   return (
-    <div>
-      <div className="brand-logo">
+    <div className="body-center">
+      {/* <div className="brand-logo">
         <SpaIcon style={{ fontSize: "36px" }} />
         <div className="brand-name">DISWIRE</div>
       </div>
@@ -19,7 +19,7 @@ function LogPage() {
             <Route exact path="/reg" component={RegForm} />
           </Switch>
         </BrowserRouter>
-      </div>
+      </div> */}
     </div>
   );
 }
