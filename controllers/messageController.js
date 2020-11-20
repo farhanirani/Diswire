@@ -22,7 +22,7 @@ module.exports.getPersonalChat = async (req, res) => {
     );
     res.status(200).json(querydata[0]);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -47,9 +47,9 @@ module.exports.getGroupChat = async (req, res) => {
       [userid, groupid]
     );
 
-    console.log(checkIfUserInGroup[0][0]);
+    // console.log(checkIfUserInGroup[0][0]);
     if (!checkIfUserInGroup[0][0]) {
-      res.status(401).json("Not authorized!!!!!!!!");
+      res.status(401).json({ message: "Not authorized!!!!!!!!" });
     } else {
       const querydata = await db.query(
         "SELECT * FROM messages_group,user_table WHERE m_group_id = ? AND userid = m_sender_id",
@@ -58,7 +58,7 @@ module.exports.getGroupChat = async (req, res) => {
       res.status(200).json(querydata[0]);
     }
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -85,7 +85,7 @@ module.exports.postPersonalChat = async (req, res) => {
     );
     res.status(200).json({ message: "success" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -114,7 +114,7 @@ module.exports.postGroupChat = async (req, res) => {
 
     // console.log(checkIfUserInGroup[0][0]);
     if (!checkIfUserInGroup[0][0]) {
-      res.status(401).json("Not authorized!!!!!!!!");
+      res.status(401).json({ message: "Not authorized!!!!!!!!" });
     } else {
       const querydata = await db.query(
         "INSERT INTO messages_group(m_body, m_sender_id, m_group_id) VALUES (?,?,?)",
@@ -123,6 +123,6 @@ module.exports.postGroupChat = async (req, res) => {
       res.status(200).json({ message: "success" });
     }
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };

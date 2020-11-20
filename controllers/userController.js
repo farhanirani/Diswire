@@ -24,7 +24,7 @@ module.exports.checkToken = async (req, res) => {
 
     return res.status(200).json(user[0][0]);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -44,7 +44,7 @@ module.exports.getusername = async (req, res) => {
     if (!user[0][0]) return res.json(false);
     return res.status(200).json(user[0][0]);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -69,7 +69,7 @@ module.exports.updatePP = async (req, res) => {
     ]);
     res.status(200).send({ message: "friend request Sent" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -90,11 +90,13 @@ module.exports.signUp = async (req, res) => {
     profile_pic,
   } = req.body;
   if (!username || !password || !confirmPassword)
-    return res.status(406).json({ msg: "Not all fields have been entered." });
+    return res
+      .status(406)
+      .json({ message: "Not all fields have been entered." });
   if (password !== confirmPassword)
     return res
       .status(406)
-      .json({ msg: "Enter the same password twice for verification." });
+      .json({ message: "Enter the same password twice for verification." });
 
   const existingUser = await db.query(
     "SELECT * FROM user_table WHERE username=? OR email=?",
@@ -102,9 +104,9 @@ module.exports.signUp = async (req, res) => {
   );
 
   if (existingUser[0][0] != null)
-    return res
-      .status(406)
-      .json({ msg: "An account with this username or email already exists." });
+    return res.status(406).json({
+      message: "An account with this username or email already exists.",
+    });
   //all parameters passed
   const salt = await bcrypt.genSalt();
   const passwordHash = await bcrypt.hash(password, salt);
@@ -114,9 +116,9 @@ module.exports.signUp = async (req, res) => {
       [username, firstname, lastname, email, passwordHash, 0, 0, profile_pic]
     );
     res.status(200).send({ message: "Success" });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({ message: "Error creating user" });
+  } catch (message) {
+    console.log(message);
+    res.status(500).send({ message: "message creating user" });
   }
 };
 
@@ -134,7 +136,9 @@ module.exports.login = async (req, res) => {
 
     // validate
     if (!userName || !password)
-      return res.status(400).json({ msg: "Not all fields have been entered." });
+      return res
+        .status(400)
+        .json({ message: "Not all fields have been entered." });
 
     const user = await db.query("SELECT * FROM user_table WHERE username=? ", [
       userName,
@@ -144,12 +148,13 @@ module.exports.login = async (req, res) => {
     const newuser = user[0][0];
 
     if (!newuser)
-      return res
-        .status(400)
-        .json({ msg: "No account with this username has been registered." });
+      return res.status(400).json({
+        message: "No account with this username has been registered.",
+      });
 
     const isMatch = await bcrypt.compare(password, newuser.pass);
-    if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." });
+    if (!isMatch)
+      return res.status(400).json({ message: "Invalid credentials." });
 
     const token = jwt.sign(
       { id: newuser.userid, username: newuser.username },
@@ -163,7 +168,7 @@ module.exports.login = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -197,7 +202,7 @@ module.exports.sendRequest = async (req, res) => {
       res.status(200).send({ message: "friend request Sent" });
     }
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -222,7 +227,7 @@ module.exports.friendRequests = async (req, res) => {
     // console.log(querydata[0]);
     res.status(200).send(querydata[0]);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -258,7 +263,7 @@ module.exports.acceptFriendReq = async (req, res) => {
       res.status(200).send({ message: "success" });
     }
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -293,7 +298,7 @@ module.exports.rejectFriendReq = async (req, res) => {
       res.status(200).send({ message: "successfully removed friend" });
     }
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -318,6 +323,6 @@ module.exports.displayFriends = async (req, res) => {
     // console.log(querydata[0]);
     res.status(200).send(querydata[0]);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };

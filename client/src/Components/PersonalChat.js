@@ -47,8 +47,8 @@ function PersonalChat() {
         setUserchatting(otheruserres.data.username);
       })();
     } catch (err) {
-      console.log(err.response.data.msg);
-      alert(err.response.data.msg);
+      console.log(err.response.data.message);
+      alert(err.response.data.message);
     }
   }, [otheruserid]);
 
@@ -87,8 +87,8 @@ function PersonalChat() {
         },
       ]);
     } catch (err) {
-      console.log(err.response.data.msg);
-      alert(err.response.data.msg);
+      console.log(err.response.data.message);
+      alert(err.response.data.message);
     }
     scrollToBottom();
     setMessage("");

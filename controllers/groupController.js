@@ -18,6 +18,11 @@ module.exports.createGroup = async (req, res) => {
     if (!verified) return res.json(false);
 
     const { g_name, g_desc, g_type } = req.body;
+
+    if (g_name == "") {
+      res.status(500).json({ message: "enter a server name" });
+    }
+
     userid = verified.id;
     channelid = Math.floor(Math.random() * 1000000000);
 
@@ -32,7 +37,7 @@ module.exports.createGroup = async (req, res) => {
     );
     res.status(200).json({ message: "group created successfully" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -59,7 +64,7 @@ module.exports.deleteGroup = async (req, res) => {
     // console.log(checkAdmin[0][0]);
 
     if (!checkAdmin[0][0] || checkAdmin[0][0].g_creator_id != userid) {
-      res.status(401).json("Not authorized!!!!!!!!");
+      res.status(401).json({ message: "Not authorized!!!!!!!!" });
     } else {
       const querydata = await db.query(
         "DELETE FROM group_table WHERE g_id = ?",
@@ -69,7 +74,41 @@ module.exports.deleteGroup = async (req, res) => {
       res.status(200).json({ message: "group deleted successfully" });
     }
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
+  }
+};
+
+//========================================================================================
+/*                                                                                      *
+ *                   leave group
+ *                                                                                      */
+//========================================================================================
+
+module.exports.leaveGroup = async (req, res) => {
+  const db = req.app.locals.db;
+
+  try {
+    const token = req.header("x-auth-token");
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if (!verified) return res.json(false);
+    const userid = verified.id;
+    const groupid = req.params.groupid;
+    const checkIfInGroup = await db.query(
+      "SELECT * FROM group_connections WHERE userid = ? AND groupid = ? ",
+      [userid, groupid]
+    );
+
+    if (!checkIfInGroup[0][0]) {
+      res.status(401).json({ message: { message: "Not authorized!!!!!!!!" } });
+    } else {
+      const querydata = await db.query(
+        "DELETE FROM group_connections WHERE userid = ? AND groupid = ?",
+        [userid, groupid]
+      );
+      res.status(200).json({ message: "left success" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -101,7 +140,7 @@ module.exports.removePerson = async (req, res) => {
       checkAdmin[0][0].g_creator_id != userid ||
       userid == removeid
     ) {
-      res.status(401).json("Not authorized!!!!!!!!");
+      res.status(401).json({ message: "Not authorized!!!!!!!!" });
     } else {
       const querydata = await db.query(
         "DELETE FROM group_connections WHERE userid = ? AND groupid = ?",
@@ -110,7 +149,7 @@ module.exports.removePerson = async (req, res) => {
       res.status(200).json({ message: "User removed successfully" });
     }
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -128,7 +167,7 @@ module.exports.createInvite = async (req, res) => {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     if (!verified) return res.json(false);
     const userid = verified.id;
-    const groupid = req.params.groupid;
+    var groupid = req.params.groupid;
 
     const checkIfInGroup = await db.query(
       "SELECT * FROM group_connections WHERE userid = ? AND groupid = ? ",
@@ -136,13 +175,16 @@ module.exports.createInvite = async (req, res) => {
     );
 
     if (!checkIfInGroup[0][0]) {
-      res.status(401).json("Not authorized!!!!!!!!");
+      res.status(401).json({ message: "Not authorized!!!!!!!!" });
     } else {
-      var enc = "ZZ8KUFM3HJ" + btoa(groupid);
+      temp = Math.floor(1000 + Math.random() * 9000);
+      groupid = parseInt(temp.toString() + groupid.toString());
+      // console.log(groupid);
+      var enc = btoa(groupid);
       res.status(200).json({ invite: enc });
     }
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -168,7 +210,7 @@ module.exports.getUsersInGroup = async (req, res) => {
     );
 
     if (!checkIfInGroup[0][0]) {
-      res.status(401).json("Not authorized!!!!!!!!");
+      res.status(401).json({ message: "Not authorized!!!!!!!!" });
     } else {
       const usersdata = await db.query(
         "SELECT username, userid, profile_pic FROM user_table WHERE userid IN (SELECT userid FROM group_connections WHERE groupid=?) ",
@@ -177,7 +219,7 @@ module.exports.getUsersInGroup = async (req, res) => {
       res.status(200).json(usersdata[0]);
     }
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -195,25 +237,28 @@ module.exports.joinUsingInvite = async (req, res) => {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     if (!verified) return res.json(false);
     const userid = verified.id;
-    const encoded = req.params.groupid.substring(10);
-    var groupid = atob(encoded);
-    console.log(groupid);
+    const encoded = req.params.groupid;
+    var groupid = atob(encoded).substring(4);
+    // console.log(groupid);
     const checkIfInGroup = await db.query(
       "SELECT * FROM group_connections WHERE userid = ? AND groupid = ? ",
       [userid, groupid]
     );
 
     if (checkIfInGroup[0][0]) {
-      res.status(401).json("You are already in this group");
+      res.status(401).json({ message: "You are already in this server" });
     } else {
       const querydata = await db.query(
         "INSERT INTO group_connections VALUES (?,?) ",
         [userid, groupid]
       );
-      res.status(200).json({ message: "success" });
+      res.status(200).json({ message: groupid });
     }
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({
+      message:
+        "Don't try to guess it xD\nIf you break the pattern message me for a gift",
+    });
   }
 };
 
@@ -237,7 +282,7 @@ module.exports.getMyGroups = async (req, res) => {
 
     res.status(200).send(querydata[0]);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -260,7 +305,7 @@ module.exports.changeGroupType = async (req, res) => {
     );
 
     if (!checkAdmin[0][0] || checkAdmin[0][0].g_creator_id != userid) {
-      res.status(401).json("Not authorized!!!!!!!!");
+      res.status(401).json({ message: "Not authorized!!!!!!!!" });
     } else {
       const querydata = await db.query(
         "UPDATE group_table SET g_type = ? WHERE g_id = ?",
@@ -269,6 +314,6 @@ module.exports.changeGroupType = async (req, res) => {
       res.status(200).json({ message: "Type updated success" });
     }
   } catch (err) {
-    res.status(405).json({ error: err.message });
+    res.status(405).json({ message: err.message });
   }
 };

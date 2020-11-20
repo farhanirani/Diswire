@@ -11,39 +11,47 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import Switch from "@material-ui/core/Switch";
 
-const currencies = [
-  {
-    value: "Music",
-    label: "Music",
-  },
-  {
-    value: "Gaming",
-    label: "Gaming",
-  },
-  {
-    value: "Education",
-    label: "Education",
-  },
-  {
-    value: "Science & Tech",
-    label: "Science & Tech",
-  },
-  {
-    value: "Entertainment",
-    label: "Entertainment",
-  },
-];
+// const currencies = [
+//   {
+//     value: "Music",
+//     label: "Music",
+//   },
+//   {
+//     value: "Gaming",
+//     label: "Gaming",
+//   },
+//   {
+//     value: "Education",
+//     label: "Education",
+//   },
+//   {
+//     value: "Science & Tech",
+//     label: "Science & Tech",
+//   },
+//   {
+//     value: "Entertainment",
+//     label: "Entertainment",
+//   },
+// ];
 
 function Server() {
   const history = useHistory();
   const [currency, setCurrency] = useState("ERU");
   const [servers, setServers] = useState([]);
-  let token = localStorage.getItem("auth-token");
+  const token = localStorage.getItem("auth-token");
+  const [enteredlink, setEnteredlink] = useState("");
+  const [newservername, setNewservername] = useState("");
+  const [setprivacy, setsetprivacy] = React.useState({
+    public: false,
+    private: true,
+  });
+  const [serverDesc, setServerDesc] = useState("");
+  const [serverName, setserverName] = useState("");
 
   useEffect(() => {
     (async () => {
-      let token = localStorage.getItem("auth-token");
       const serverData = await axios.get("/api/group", {
         headers: { "x-auth-token": token },
       });
@@ -53,8 +61,60 @@ function Server() {
     })();
   }, []);
 
+  // const handleChange = (event) => {
+  //   setCurrency(event.target.value);
+  // };
+
   const handleChange = (event) => {
-    setCurrency(event.target.value);
+    setsetprivacy({ ...setprivacy, [event.target.name]: event.target.checked });
+  };
+
+  const joinserver = async (e) => {
+    e.preventDefault();
+    try {
+      if (!token) {
+        alert("Please login first");
+      } else {
+        const temp = await axios.post(
+          "/api/group/groupinvite/" + enteredlink,
+          null,
+          { headers: { "x-auth-token": token } }
+        );
+        history.push("/channels/" + temp.data.message);
+      }
+    } catch (err) {
+      console.log(err.response.data.message);
+      alert(err.response.data.message);
+    }
+  };
+
+  const createserver = async (e) => {
+    e.preventDefault();
+    try {
+      if (!token) {
+        alert("Please login first");
+      } else if (serverName == "") {
+        alert("enter a server name");
+      } else {
+        var privacy = "private";
+        if (setprivacy.private == false) {
+          privacy = "public";
+        }
+        const temp = await axios.post(
+          "/api/group/create",
+          {
+            g_name: serverName,
+            g_desc: serverDesc,
+            g_type: privacy,
+          },
+          { headers: { "x-auth-token": token } }
+        );
+      }
+    } catch (err) {
+      console.log(err.response.data.message);
+      alert(err.response.data.message);
+    }
+    window.location.reload();
   };
 
   return (
@@ -114,13 +174,33 @@ function Server() {
                 and start talking.
               </p>
               <div className="content">
-                <h2>SERVER NAME</h2>
+                <h2>Server Name</h2>
                 <input
                   placeholder="Server Name"
+                  value={serverName}
+                  onChange={(e) => setserverName(e.target.value)}
                   className="serv-name"
                   required
                 ></input>
-                <h2 style={{ marginBottom: "10px" }}>SERVER CATEGORY</h2>
+                <h2>Server Description</h2>
+                <input
+                  placeholder="Server Description"
+                  value={serverDesc}
+                  onChange={(e) => setServerDesc(e.target.value)}
+                  className="serv-name"
+                  required
+                ></input>
+                <div className=" content privacy__settings">
+                  <h2>Public</h2>
+                  <Switch
+                    checked={setprivacy.private}
+                    onChange={handleChange}
+                    name="private"
+                    inputProps={{ "aria-label": "secondary checkbox" }}
+                  />
+                  <h2>Private</h2>
+                </div>
+                {/* <h2 style={{ marginBottom: "10px" }}>SERVER CATEGORY</h2>
                 <TextField
                   id="outlined-select-currency"
                   select
@@ -135,8 +215,8 @@ function Server() {
                       {option.label}
                     </MenuItem>
                   ))}
-                </TextField>
-                <div className="checkbox">
+                </TextField> */}
+                {/* <div className="checkbox">
                   <input
                     type="checkbox"
                     name=""
@@ -147,10 +227,14 @@ function Server() {
                   <p className="check-info">
                     I am making this server for a club or a community.
                   </p>
-                </div>
+                </div> */}
               </div>
               <div className="actions">
-                <button type="submit" className="create-button">
+                <button
+                  type="submit"
+                  className="create-button"
+                  onClick={createserver}
+                >
                   Create
                 </button>
               </div>
@@ -158,7 +242,6 @@ function Server() {
             <form
               className="modal"
               style={{
-                height: "400px",
                 marginTop: "auto",
                 marginBottom: "auto",
               }}
@@ -177,23 +260,22 @@ function Server() {
                 Enter an invite below to join an existing server.
               </p>
               <div className="content">
-                {" "}
                 <h2>INVITE LINK</h2>
                 <input
-                  placeholder="https://discord.gg/hTKzmak"
+                  placeholder="MTc3MjE3"
+                  value={enteredlink}
+                  onChange={(e) => setEnteredlink(e.target.value)}
                   className="serv-name"
                   style={{ background: " #CCCCCC", border: "0" }}
                   required
                 ></input>
-                <h2 style={{ paddingBottom: "10px" }}>
-                  INVITE LINK SHOULD LOOK LIKE
-                </h2>
-                <p className="server-links">hTZmak</p>
-                <p className="server-links">https://discord.gg/hTKzmak</p>
-                <p className="server-links">https://discord.gg/cool-people</p>
               </div>
               <div className="actions">
-                <button type="submit" className="join-button">
+                <button
+                  type="submit"
+                  className="join-button"
+                  onClick={joinserver}
+                >
                   Join Server
                 </button>
               </div>

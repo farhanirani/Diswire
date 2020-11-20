@@ -23,17 +23,34 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import LinkIcon from "@material-ui/icons/Link";
 
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 function SideBar() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const history = useHistory();
   const channelid = window.location.pathname.substring(10);
   const [servers, setServers] = useState([]);
-  let token = localStorage.getItem("auth-token");
+  const token = localStorage.getItem("auth-token");
   const [currentChannelName, setcurrentChannelName] = useState("");
+  const [channelinvite, setChannelinvite] = useState("");
 
   const [userinfo, setUserinfo] = useState([]);
   useEffect(() => {
     (async () => {
-      let token = localStorage.getItem("auth-token");
       const tokenRes = await axios.post("/api/user/checkToken", null, {
         headers: { "x-auth-token": token },
       });
@@ -49,7 +66,18 @@ function SideBar() {
 
   useEffect(() => {
     (async () => {
-      let token = localStorage.getItem("auth-token");
+      const serverData = await axios.get(
+        "/api/group/groupinvite/" + channelid,
+        {
+          headers: { "x-auth-token": token },
+        }
+      );
+      setChannelinvite(serverData.data.invite);
+    })();
+  }, [channelid]);
+
+  useEffect(() => {
+    (async () => {
       const serverData = await axios.get("/api/group", {
         headers: { "x-auth-token": token },
       });
@@ -78,7 +106,6 @@ function SideBar() {
   const [URL, setURL] = useState("");
 
   const handlePP = async (e) => {
-    e.preventDefault();
     if (URL != "") {
       try {
         console.log(URL);
@@ -92,15 +119,69 @@ function SideBar() {
           }
         );
       } catch (err) {
-        console.log(err.response.data.msg);
-        alert(err.response.data.msg);
+        console.log(err.response.data.message);
+        alert(err.response.data.message);
       }
     }
     setURL("");
   };
 
+  const leavechannel = async (e) => {
+    try {
+      console.log(URL);
+      const temp = await axios.delete("/api/group/leavegroup/" + channelid, {
+        headers: { "x-auth-token": token },
+      });
+    } catch (err) {
+      console.log(err.response.data.message);
+      alert(err.response.data.message);
+    }
+    history.push("/channels/@me");
+  };
+
   return (
     <div className="sidebar">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <div className="join-create">
+          <form
+            className="modal"
+            style={{
+              height: "240px",
+              marginTop: "auto",
+              marginBottom: "auto",
+            }}
+          >
+            <div className="create-top">
+              <div className="top-left">
+                <div className="create-header"> Server Link </div>
+              </div>
+              <div className="top-right">
+                <IconButton onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+              </div>
+            </div>
+            <p className="create-info">
+              Enter the link given below in Join server section.
+            </p>
+            <div className="content">
+              <h2>INVITE LINK</h2>
+              <input
+                value={channelinvite}
+                className="serv-name"
+                style={{ background: " #CCCCCC", border: "0" }}
+                required
+              ></input>
+            </div>
+          </form>
+        </div>
+      </Dialog>
+
       <Popup
         trigger={
           <div className="sidebar-top">
@@ -116,58 +197,19 @@ function SideBar() {
         arrow={false}
       >
         <div className="menu">
-          <Popup
-            trigger={
-              <div className="menu-item">
-                Channel Link
-                <LinkIcon style={{ paddingTop: "2px" }} fontSize="small" />
-              </div>
-            }
-            modal
-            nested
-          >
-            {(close) => (
-              <div className="join-create">
-                <form
-                  className="modal"
-                  style={{
-                    height: "240px",
-                    marginTop: "auto",
-                    marginBottom: "auto",
-                  }}
-                >
-                  <div className="create-top">
-                    <div className="top-left">
-                      <div className="create-header"> Server Link </div>
-                    </div>
-                    <div className="top-right">
-                      <IconButton onClick={close}>
-                        <CloseIcon />
-                      </IconButton>
-                    </div>
-                  </div>
-                  <p className="create-info">
-                    Enter the link given below in Join server section.
-                  </p>
-                  <div className="content">
-                    {" "}
-                    <h2>INVITE LINK</h2>
-                    <input
-                      placeholder="https://discord.gg/hTKzmak"
-                      className="serv-name"
-                      style={{ background: " #CCCCCC", border: "0" }}
-                      required
-                    ></input>
-                  </div>
-                </form>
-              </div>
-            )}
-          </Popup>
+          <div className="menu-item" onClick={handleClickOpen}>
+            Channel Link
+            <LinkIcon style={{ paddingTop: "2px" }} fontSize="small" />
+          </div>
+
           <div className="menu-item">
             Privacy Settings
             <SecurityIcon style={{ paddingTop: "2px" }} fontSize="small" />
           </div>
-          <div className="menu-item-leave">
+          <div
+            className="menu-item-leave"
+            onClick={(e) => leavechannel(channelid)}
+          >
             Leave Channel
             <ExitToAppIcon style={{ paddingTop: "2px" }} fontSize="small" />
           </div>
@@ -233,7 +275,11 @@ function SideBar() {
                 onChange={(e) => setURL(e.target.value)}
                 value={URL}
               />
-              <button type="submit" className="url-submit" onClick={handlePP}>
+              <button
+                type="submit"
+                className="url-submit"
+                onClick={(e) => handlePP}
+              >
                 Submit
               </button>
             </div>

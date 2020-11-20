@@ -42,8 +42,8 @@ function ChanChat() {
         // console.log(tokenRes.data);
       })();
     } catch (err) {
-      console.log(err.response.data.msg);
-      alert(err.response.data.msg);
+      console.log(err.response.data.message);
+      alert(err.response.data.message);
     }
   }, [channelid]);
 
@@ -82,8 +82,8 @@ function ChanChat() {
         },
       ]);
     } catch (err) {
-      console.log(err.response.data.msg);
-      alert(err.response.data.msg);
+      console.log(err.response.data.message);
+      alert(err.response.data.message);
     }
     scrollToBottom();
     setMessage("");
