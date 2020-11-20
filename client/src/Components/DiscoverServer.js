@@ -13,6 +13,7 @@ import LibraryMusicRoundedIcon from "@material-ui/icons/LibraryMusicRounded";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 import ImportantDevicesIcon from "@material-ui/icons/ImportantDevices";
 import LiveTvIcon from "@material-ui/icons/LiveTv";
+import Popup from "reactjs-popup";
 
 function DiscoverServer() {
   const history = useHistory();
@@ -34,6 +35,56 @@ function DiscoverServer() {
       }
     })();
   }, []);
+  const [friends, setFriends] = useState([]);
+  const [URL, setURL] = useState("");
+  const token = localStorage.getItem("auth-token");
+
+  useEffect(() => {
+    (async () => {
+      const tokenRes = await axios.post("/api/user/checkToken", null, {
+        headers: { "x-auth-token": token },
+      });
+
+      // console.log(tokenRes.data);
+      if (!tokenRes.data) {
+        history.push("/login");
+      } else {
+        setUserinfo(tokenRes.data);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const friendsdata = await axios.get("/api/user/displayFriends", {
+        headers: { "x-auth-token": token },
+      });
+      setFriends(friendsdata.data);
+      // console.log(friendsdata.data);
+    })();
+  }, []);
+
+  const handlePP = async (e) => {
+    e.preventDefault();
+    if (URL != "") {
+      try {
+        console.log(URL);
+        axios.patch(
+          "/api/user/updatePP",
+          {
+            profile_pic: URL,
+          },
+          {
+            headers: { "x-auth-token": token },
+          }
+        );
+      } catch (err) {
+        console.log(err.response.data.msg);
+        alert(err.response.data.msg);
+      }
+    }
+    setURL("");
+  };
 
   return (
     <div className="sidebar">
@@ -91,10 +142,38 @@ function DiscoverServer() {
         </div>
       </div>
       <div className="sidebar-profile">
-        <Avatar
-          style={{ height: "30px", width: "30px" }}
-          src={userinfo.profile_pic}
-        />
+        <Popup
+          trigger={
+            <Avatar
+              style={{ height: "30px", width: "30px" }}
+              src={userinfo.profile_pic}
+            />
+          }
+          position="top left"
+          closeOnDocumentClick
+          mouseLeaveDelay={300}
+          mouseEnterDelay={0}
+          contentStyle={{ padding: "0px", border: "none" }}
+          arrow={false}
+        >
+          <div className="menu" style={{ width: "400px" }}>
+            <div>
+              <p className="url-label">Add Profile Image URL-</p>
+            </div>
+            <div className="menu-item-url">
+              <input
+                type="text"
+                placeholder="Enter URL of the image"
+                className="url-input"
+                onChange={(e) => setURL(e.target.value)}
+                value={URL}
+              />
+              <button type="submit" className="url-submit" onClick={handlePP}>
+                Submit
+              </button>
+            </div>
+          </div>
+        </Popup>
         <div className="sidebar-profileinfo">
           <h3>{userinfo.username}</h3>
           <p>#{userinfo.userid}</p>
