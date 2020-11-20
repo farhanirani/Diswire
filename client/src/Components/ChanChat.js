@@ -13,6 +13,8 @@ function ChanChat() {
   const token = localStorage.getItem("auth-token");
   const [message, setMessage] = useState("");
   const history = useHistory();
+  const [scroll, setScroll] = useState(0);
+  const [nowBecomeRealtime, setNowBecomeRealtime] = useState(0);
 
   const [userinfo, setUserinfo] = useState([]);
 
@@ -22,8 +24,6 @@ function ChanChat() {
       const tokenRes = await axios.post("/api/user/checkToken", null, {
         headers: { "x-auth-token": token },
       });
-
-      // console.log(tokenRes.data);
       if (!tokenRes.data) {
         history.push("/login");
       } else {
@@ -39,13 +39,33 @@ function ChanChat() {
           headers: { "x-auth-token": token },
         });
         setmessages(tokenRes.data);
-        // console.log(tokenRes.data);
+        setNowBecomeRealtime(nowBecomeRealtime + 1);
+        scrollToBottom();
       })();
     } catch (err) {
       console.log(err.response.data.message);
       alert(err.response.data.message);
     }
   }, [channelid]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      (async () => {
+        const tokenRes = await axios.get("/api/messages/group/" + channelid, {
+          headers: { "x-auth-token": token },
+        });
+        if (tokenRes.data.length != messages.length) {
+          setmessages(tokenRes.data);
+          setScroll(scroll + 1);
+        }
+        console.log(messages.length, tokenRes.data.length);
+      })();
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [nowBecomeRealtime]);
 
   const scrollToBottom = (e) => {
     setTimeout(() => {
@@ -57,7 +77,7 @@ function ChanChat() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [scroll]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,10 +97,12 @@ function ChanChat() {
           m_id: 100 + Math.floor(Math.random() * 101),
           m_body: message,
           m_sender_id: userinfo.userid,
-          m_sentat: "now",
+          m_sentat: "Now",
           username: userinfo.username,
+          profile_pic: userinfo.profile_pic,
         },
       ]);
+      setScroll(scroll + 1);
     } catch (err) {
       console.log(err.response.data.message);
       alert(err.response.data.message);
@@ -102,6 +124,7 @@ function ChanChat() {
                 sentby={message.username}
                 sentbyid={message.m_sender_id}
                 timestamp={message.m_sentat}
+                profile_pic={message.profile_pic}
               />
             ))}
           </div>
