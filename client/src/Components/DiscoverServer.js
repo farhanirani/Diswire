@@ -18,10 +18,12 @@ import Popup from "reactjs-popup";
 function DiscoverServer() {
   const history = useHistory();
   const [userinfo, setUserinfo] = useState([]);
+  const token = localStorage.getItem("auth-token");
+  const [friends, setFriends] = useState([]);
+  const [URL, setURL] = useState("");
 
   useEffect(() => {
     (async () => {
-      let token = localStorage.getItem("auth-token");
       const tokenRes = await axios.post("/api/user/checkToken", null, {
         headers: { "x-auth-token": token },
       });
@@ -35,9 +37,6 @@ function DiscoverServer() {
       }
     })();
   }, []);
-  const [friends, setFriends] = useState([]);
-  const [URL, setURL] = useState("");
-  const token = localStorage.getItem("auth-token");
 
   useEffect(() => {
     (async () => {

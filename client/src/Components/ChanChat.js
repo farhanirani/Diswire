@@ -20,7 +20,6 @@ function ChanChat() {
 
   useEffect(() => {
     (async () => {
-      let token = localStorage.getItem("auth-token");
       const tokenRes = await axios.post("/api/user/checkToken", null, {
         headers: { "x-auth-token": token },
       });
@@ -39,7 +38,7 @@ function ChanChat() {
           headers: { "x-auth-token": token },
         });
         setmessages(tokenRes.data);
-        setNowBecomeRealtime(nowBecomeRealtime + 1);
+        setNowBecomeRealtime(2);
         scrollToBottom();
       })();
     } catch (err) {
@@ -49,22 +48,29 @@ function ChanChat() {
   }, [channelid]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      (async () => {
-        const tokenRes = await axios.get("/api/messages/group/" + channelid, {
-          headers: { "x-auth-token": token },
-        });
-        if (tokenRes.data.length != messages.length) {
-          setmessages(tokenRes.data);
-          setScroll(scroll + 1);
-        }
-        console.log(messages.length, tokenRes.data.length);
-      })();
-    }, 1000);
+    if (nowBecomeRealtime > 1) {
+      const interval = setInterval(() => {
+        (async () => {
+          await axios
+            .get("/api/messages/group/" + channelid, {
+              headers: { "x-auth-token": token },
+            })
+            .then((res) => {
+              // console.log(messages.length, res.data.length);
+              if (res.data.length != messages.length) {
+                setNowBecomeRealtime(0);
+                setmessages(res.data);
+                scrollToBottom();
+                setNowBecomeRealtime(2);
+              }
+            });
+        })();
+      }, 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+      return () => {
+        clearInterval(interval);
+      };
+    }
   }, [nowBecomeRealtime]);
 
   const scrollToBottom = (e) => {
@@ -81,32 +87,40 @@ function ChanChat() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setNowBecomeRealtime(0);
     try {
-      axios.post(
-        "/api/messages/postgroup/" + channelid,
-        {
-          messagedata: message,
-        },
-        {
-          headers: { "x-auth-token": token },
-        }
-      );
-      setmessages([
-        ...messages,
-        {
-          m_id: 100 + Math.floor(Math.random() * 101),
-          m_body: message,
-          m_sender_id: userinfo.userid,
-          m_sentat: "Now",
-          username: userinfo.username,
-          profile_pic: userinfo.profile_pic,
-        },
-      ]);
-      setScroll(scroll + 1);
+      (async () => {
+        await axios
+          .post(
+            "/api/messages/postgroup/" + channelid,
+            {
+              messagedata: message,
+            },
+            {
+              headers: { "x-auth-token": token },
+            }
+          )
+          .then((res) => {
+            setmessages([
+              ...messages,
+              {
+                m_id: 100 + Math.floor(Math.random() * 10001),
+                m_body: message,
+                m_sender_id: userinfo.userid,
+                m_sentat: "Now",
+                username: userinfo.username,
+                profile_pic: userinfo.profile_pic,
+              },
+            ]);
+            setNowBecomeRealtime(2);
+            setScroll(scroll + 1);
+          });
+      })();
     } catch (err) {
       console.log(err.response.data.message);
       alert(err.response.data.message);
     }
+    console.log(messages.length);
     scrollToBottom();
     setMessage("");
   };

@@ -4,10 +4,10 @@ import axios from "axios";
 
 function CheckUserLoggedInOrNot() {
   const history = useHistory();
+  const token = localStorage.getItem("auth-token");
 
   useEffect(() => {
     (async () => {
-      let token = localStorage.getItem("auth-token");
       const tokenRes = await axios.post("/api/user/checkToken", null, {
         headers: { "x-auth-token": token },
       });
