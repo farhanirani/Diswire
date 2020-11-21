@@ -5,7 +5,7 @@
   background-color: #2f3236;
 }
 
-.list-header{
+.list-header {
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -17,8 +17,8 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .list-header {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .list-header > h4 {
@@ -39,12 +39,24 @@
   display: flex;
   width: 225px;
   align-items: center;
+  justify-content: space-between;
   color: white;
   background-color: #2f3236;
   padding: 10px;
 }
 
-.member-info > h3 {
+.member-info-left {
+  display: flex;
+}
+
+.member-info-right {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #8e9296;
+}
+
+.member-info > .member-info-left > h3 {
   display: flex;
   align-items: center;
   padding-left: 15px;
