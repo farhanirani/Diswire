@@ -78,7 +78,10 @@ function DMList() {
 
   return (
     <div className="sidebar">
-      <div className="friends-header active">
+      <div
+        className="friends-header active"
+        onClick={() => history.push("/channels/@me")}
+      >
         <h4>
           <span>
             <PeopleRoundedIcon />

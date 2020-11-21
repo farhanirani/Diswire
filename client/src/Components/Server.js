@@ -12,6 +12,9 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import Switch from "@material-ui/core/Switch";
+import { Avatar } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import grey from "@material-ui/core/colors/grey";
 
 // const currencies = [
 //   {
@@ -35,8 +38,19 @@ import Switch from "@material-ui/core/Switch";
 //     label: "Entertainment",
 //   },
 // ];
+const useStyles = makeStyles((theme) => ({
+  large: {
+    width: theme.spacing(6),
+    height: theme.spacing(6),
+  },
+  orange: {
+    color: theme.palette.getContrastText(grey[800]),
+    backgroundColor: grey[800],
+  },
+}));
 
 function Server() {
+  const classes = useStyles();
   const history = useHistory();
   const [currency, setCurrency] = useState("ERU");
   const [servers, setServers] = useState([]);
@@ -56,7 +70,7 @@ function Server() {
         headers: { "x-auth-token": token },
       });
 
-      // console.log(serverData.data);
+      console.log(serverData.data);
       setServers(serverData.data);
     })();
   }, []);
@@ -138,7 +152,13 @@ function Server() {
             onClick={() => history.push("/channels/" + server.g_id)}
           >
             <span className="tooltiptext">{server.g_name}</span>
-            <span>{server.g_name.charAt(0).toUpperCase()}</span>
+            <span></span>
+            <Avatar
+              className={`${classes.large} ${classes.orange}`}
+              src={server.g_pp}
+            >
+              {server.g_name.charAt(0).toUpperCase()}
+            </Avatar>
           </div>
         );
       })}
@@ -202,34 +222,6 @@ function Server() {
                   />
                   <h2>Private</h2>
                 </div>
-                {/* <h2 style={{ marginBottom: "10px" }}>SERVER CATEGORY</h2>
-                <TextField
-                  id="outlined-select-currency"
-                  select
-                  value={currency}
-                  onChange={handleChange}
-                  variant="outlined"
-                  className="serv-category"
-                  required
-                >
-                  {currencies.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField> */}
-                {/* <div className="checkbox">
-                  <input
-                    type="checkbox"
-                    name=""
-                    id=""
-                    style={{ width: "18px", height: "18px", marginTop: "6px" }}
-                    required
-                  />
-                  <p className="check-info">
-                    I am making this server for a club or a community.
-                  </p>
-                </div> */}
               </div>
               <div className="actions">
                 <button

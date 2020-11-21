@@ -38,6 +38,7 @@ function MemberList() {
         {members.map((member) => {
           return (
             <div
+              key={member.userid}
               className="member-info"
               onClick={() => {
                 history.push("/channels/@me/" + member.userid);

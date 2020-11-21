@@ -64,7 +64,7 @@ function RegForm() {
   };
 
   return (
-    <div className="login-form">
+    <form className="login-form" onSubmit={handlelogin}>
       <h2 className="welcome-text" style={{ marginTop: "10px" }}>
         Create an Account
       </h2>
@@ -149,7 +149,7 @@ function RegForm() {
         />
       </div>
       <Button
-        onClick={handlelogin}
+        type="submit"
         variant="contained"
         color="primary"
         style={{
@@ -168,7 +168,7 @@ function RegForm() {
           Already have an Account?
         </span>
       </p>
-    </div>
+    </form>
   );
 }
 

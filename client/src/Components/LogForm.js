@@ -19,6 +19,7 @@ function LogForm() {
   }, []);
 
   const handlelogin = async (e) => {
+    e.preventDefault();
     console.log(username, password);
     try {
       const tokenres = await axios.post("/api/user/login", {
@@ -36,7 +37,7 @@ function LogForm() {
   };
 
   return (
-    <div className="login-form">
+    <form className="login-form" onSubmit={handlelogin}>
       <h2 className="welcome-text">Welcome back!</h2>
       <p className="welcome-p">We're so excited to see you again!</p>
       <div className="uname-field">
@@ -73,7 +74,7 @@ function LogForm() {
           padding: "10px",
           fontWeight: "600",
         }}
-        onClick={handlelogin}
+        type="submit"
       >
         Login
       </Button>
@@ -83,7 +84,7 @@ function LogForm() {
           Register
         </span>
       </p>
-    </div>
+    </form>
   );
 }
 

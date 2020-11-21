@@ -226,8 +226,8 @@ module.exports.friendRequests = async (req, res) => {
     if (!verified) return res.json(false);
 
     const querydata = await db.query(
-      "SELECT userid, username, profile_pic FROM user_table WHERE userid!=? AND (userid IN (SELECT userid1 FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'P') OR userid IN (SELECT userid2 FROM personal_connections WHERE (userid1=? OR userid2=?) AND friend_request = 'P')) ",
-      [verified.id, verified.id, verified.id, verified.id, verified.id]
+      "SELECT userid, username, profile_pic FROM user_table WHERE userid IN( SELECT userid1 FROM personal_connections WHERE userid2=? AND friend_request = 'P') ",
+      [verified.id]
     );
 
     // console.log(querydata[0]);

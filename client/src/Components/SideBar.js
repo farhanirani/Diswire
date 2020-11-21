@@ -69,7 +69,7 @@ function SideBar() {
         headers: { "x-auth-token": token },
       });
 
-      // console.log(tokenRes.data);
+      console.log(tokenRes.data);
       if (!tokenRes.data) {
         history.push("/hello");
       } else {
@@ -102,6 +102,7 @@ function SideBar() {
         // eslint-disable-next-line
         if (serverData.data[i].g_id == channelid) {
           setcurrentChannelName(serverData.data[i].g_name);
+          setAuid(serverData.data[i].g_creator_id);
           break;
         }
       }

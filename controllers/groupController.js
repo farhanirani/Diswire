@@ -276,7 +276,7 @@ module.exports.getMyGroups = async (req, res) => {
     if (!verified) return res.json(false);
 
     const querydata = await db.query(
-      "SELECT g_id, g_name, g_desc, g_members, g_creator_id FROM group_table WHERE g_id IN (SELECT groupid FROM group_connections WHERE userid=?) ",
+      "SELECT g_id, g_name, g_desc, g_members, g_creator_id, g_pp FROM group_table WHERE g_id IN (SELECT groupid FROM group_connections WHERE userid=?) ",
       [verified.id]
     );
 
