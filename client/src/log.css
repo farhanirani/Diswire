@@ -21,17 +21,28 @@
 .brand-logo {
   color: white;
   display: flex;
-  align-items: center;
-  text-align: center;
+  flex-direction: row;
   font-size: 22px;
-  position: absolute;
-  top: 3%;
-  left: 2%;
+  padding-top: 30px;
+  padding-left: 30px;
+  width: 400px;
+}
+
+.logo__image {
+  position: relative;
+  top: 0% !important;
+  left: 0% !important;
+  transform: none !important;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .brand-name {
   font-weight: 800;
   padding: 5px;
+  text-align: center;
+  padding: 20px 0;
+  padding-left: 18px;
 }
 
 .brand-logo:hover {

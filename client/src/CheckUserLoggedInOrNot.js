@@ -5,7 +5,8 @@ import axios from "axios";
 function CheckUserLoggedInOrNot() {
   const history = useHistory();
   const token = localStorage.getItem("auth-token");
-
+  const page = window.location.pathname.substring(1);
+  console.log(page);
   useEffect(() => {
     (async () => {
       const tokenRes = await axios.post("/api/user/checkToken", null, {
@@ -13,8 +14,8 @@ function CheckUserLoggedInOrNot() {
       });
 
       // console.log(tokenRes.data);
-      if (!tokenRes.data) {
-        history.push("/login");
+      if (!tokenRes.data && page !== "login" && page !== "reg") {
+        history.push("/hello");
       }
     })();
   }, []);

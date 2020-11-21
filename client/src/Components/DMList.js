@@ -70,6 +70,12 @@ function DMList() {
     setURL("");
   };
 
+  const logout = () => {
+    localStorage.setItem("auth-token", "");
+    alert("Successfully logged out!");
+    history.push("/hello");
+  };
+
   return (
     <div className="sidebar">
       <div className="friends-header active">
@@ -164,7 +170,7 @@ function DMList() {
             arrow={false}
           >
             <div className="menu">
-              <div className="menu-item-leave">
+              <div className="menu-item-leave" onClick={logout}>
                 Log Out
                 <MeetingRoomTwoToneIcon
                   style={{ paddingTop: "2px" }}

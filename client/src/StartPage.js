@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import "./home.css";
 
 function StartPage() {
+  const history = useHistory();
+  const token = localStorage.getItem("auth-token");
+
+  const redirec = async () => {
+    history.push("/login");
+  };
+
+  const redirec2 = async () => {
+    history.push("/reg");
+  };
+
   return (
     <div>
       {/* Required meta tags */}
@@ -41,7 +53,7 @@ function StartPage() {
           paddingTop: "20px",
         }}
       >
-        <a className="navbar-brand" href="/channels/69">
+        <a className="navbar-brand">
           <i className="fab fa-discord" style={{ fontSize: "32px" }} id="b1" />
           <p id="b1">DISWIRE</p>
         </a>
@@ -63,22 +75,20 @@ function StartPage() {
         >
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
-              <a className="nav-link" href="/channels/69">
+              <a className="nav-link">
                 Home <span className="sr-only">(current)</span>
               </a>
             </li>
             <li className="nav-item active">
-              <a className="nav-link" href="/channels/69">
-                Why Diswire?
-              </a>
+              <a className="nav-link">Why Diswire?</a>
             </li>
             <li className="nav-item active">
-              <a className="nav-link" href="/channels/69" id="home">
+              <a className="nav-link" id="home">
                 About
               </a>
             </li>
           </ul>
-          <button className="btn" id="b2">
+          <button className="btn" id="b2" onClick={redirec}>
             Login
           </button>
         </div>
@@ -204,25 +214,25 @@ function StartPage() {
           Your Place to Talk
         </h3>
         <div style={{ paddingLeft: "5%" }}>
-          <a href="/channels/69" style={{ color: "white" }}>
+          <a style={{ color: "white" }}>
             <i
               className="fa fa-twitter"
               style={{ fontSize: "24px", paddingRight: "20px" }}
             />
           </a>
-          <a href="/channels/69" style={{ color: "white" }}>
+          <a style={{ color: "white" }}>
             <i
               className="fa fa-instagram"
               style={{ fontSize: "24px", paddingRight: "20px" }}
             />
           </a>
-          <a href="/channels/69" style={{ color: "white" }}>
+          <a style={{ color: "white" }}>
             <i
               className="fa fa-facebook-official"
               style={{ fontSize: "24px", paddingRight: "20px" }}
             />
           </a>
-          <a href="/channels/69" style={{ color: "white" }}>
+          <a style={{ color: "white" }}>
             <i
               className="fa fa-youtube-play"
               style={{ fontSize: "24px", paddingRight: "20px" }}
@@ -237,7 +247,7 @@ function StartPage() {
           }}
         />
         <div style={{ paddingLeft: "5%" }}>
-          <a className="navbar-brand" href="/channels/69">
+          <a className="navbar-brand">
             <i
               className="fab fa-discord"
               style={{ fontSize: "32px" }}
@@ -245,7 +255,12 @@ function StartPage() {
             />
             <p id="b1">DISWIRE</p>
           </a>
-          <button className="btn" id="b2" style={{ float: "right" }}>
+          <button
+            className="btn"
+            id="b2"
+            style={{ float: "right" }}
+            onClick={redirec2}
+          >
             Sign up
           </button>
         </div>

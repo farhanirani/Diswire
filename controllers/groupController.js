@@ -317,3 +317,34 @@ module.exports.changeGroupType = async (req, res) => {
     res.status(405).json({ message: err.message });
   }
 };
+
+module.exports.updatepp = async (req, res) => {
+  const db = req.app.locals.db;
+
+  try {
+    const token = req.header("x-auth-token");
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if (!verified) return res.json(false);
+    const userid = verified.id;
+    const groupid = req.params.groupid;
+    const { g_pp } = req.body;
+    console.log(groupid, g_pp);
+    const checkIfInGroup = await db.query(
+      "SELECT * FROM group_connections WHERE userid = ? AND groupid = ? ",
+      [userid, groupid]
+    );
+
+    if (!checkIfInGroup[0][0]) {
+      res.status(401).json({ message: "Not authorized!!!!!!!!" });
+    } else {
+      await db.query("UPDATE group_table SET g_pp = ? WHERE g_id = ?", [
+        g_pp,
+        groupid,
+      ]);
+
+      res.status(200).json({ message: "updated" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

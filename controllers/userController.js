@@ -131,7 +131,7 @@ module.exports.signUp = async (req, res) => {
 module.exports.login = async (req, res) => {
   const db = req.app.locals.db;
   try {
-    // console.log(req.body);
+    console.log(req.body);
     const { userName, password } = req.body;
 
     // validate

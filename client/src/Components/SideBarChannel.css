@@ -3,9 +3,14 @@
   background-color: #40464b;
 }
 
+.sidebarChannelactive > h4 {
+  color: white !important;
+  background-color: #40464b !important;
+}
+
 .sidebarChannel > h4 {
   display: flex;
-  padding-left: 20px;
+  padding-left: 16px;
   align-items: center;
   background-color: #2f3236;
   font-size: 16px;
@@ -13,6 +18,7 @@
   font-weight: 500;
   color: gray;
   cursor: pointer;
+  border-radius: 15px;
 }
 
 h4 > span {

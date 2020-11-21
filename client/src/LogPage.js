@@ -16,11 +16,19 @@ function LogPage() {
     }
   }, []);
 
+  const redirec = async () => {
+    history.push("/hello");
+  };
+
   return (
     <div className="body-center">
-      <div className="brand-logo">
-        {/* <SpaIcon style={{ fontSize: "36px" }} /> */}
-        <div className="brand-name">DISWIRE</div>
+      <div className="brand-logo" onClick={redirec}>
+        <img
+          className="logo__image"
+          style={{ width: "70px" }}
+          src="https://shigurekaini-155308.appspot.com/images/discord-icon.png"
+        />
+        <div className="brand-name">Diswire</div>
       </div>
       <div className="center-content">
         <BrowserRouter>

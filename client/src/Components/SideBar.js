@@ -32,6 +32,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 function SideBar() {
   const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -41,14 +42,29 @@ function SideBar() {
     setOpen(false);
   };
 
+  const handleClickOpen2 = () => {
+    setOpen2(true);
+  };
+
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
+
   const history = useHistory();
   const channelid = window.location.pathname.substring(10);
   const [servers, setServers] = useState([]);
   const token = localStorage.getItem("auth-token");
   const [currentChannelName, setcurrentChannelName] = useState("");
   const [channelinvite, setChannelinvite] = useState("");
-
+  const [ServerURL, setServerURL] = useState("");
   const [userinfo, setUserinfo] = useState([]);
+
+  const logout = () => {
+    localStorage.setItem("auth-token", "");
+    alert("Successfully logged out!");
+    history.push("/login");
+  };
+
   useEffect(() => {
     (async () => {
       const tokenRes = await axios.post("/api/user/checkToken", null, {
@@ -57,7 +73,7 @@ function SideBar() {
 
       // console.log(tokenRes.data);
       if (!tokenRes.data) {
-        history.push("/login");
+        history.push("/hello");
       } else {
         setUserinfo(tokenRes.data);
       }
@@ -126,6 +142,29 @@ function SideBar() {
     setURL("");
   };
 
+  const submitserverpp = async (e) => {
+    console.log("LOLOLO");
+    if (ServerURL != "") {
+      try {
+        console.log(ServerURL);
+        axios.post(
+          "/api/group/updatepp/" + channelid,
+          {
+            g_pp: ServerURL,
+          },
+          {
+            headers: { "x-auth-token": token },
+          }
+        );
+      } catch (err) {
+        console.log(err.response.data.message);
+        alert(err.response.data.message);
+      }
+    }
+    setServerURL("");
+    setOpen2(false);
+  };
+
   const leavechannel = async (e) => {
     try {
       console.log(URL);
@@ -148,7 +187,7 @@ function SideBar() {
         aria-describedby="alert-dialog-description"
       >
         <div className="join-create">
-          <form
+          <div
             className="modal"
             style={{
               height: "240px",
@@ -178,7 +217,50 @@ function SideBar() {
                 required
               ></input>
             </div>
-          </form>
+          </div>
+        </div>
+      </Dialog>
+
+      <Dialog
+        open={open2}
+        onClose={handleClose2}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <div className="join-create">
+          <div
+            className="modal"
+            style={{
+              marginTop: "auto",
+              marginBottom: "auto",
+            }}
+          >
+            <div className="create-top">
+              <div className="top-left">
+                <div className="create-header">Set Server Profile Picture </div>
+              </div>
+              <div className="top-right">
+                <IconButton onClick={handleClose2}>
+                  <CloseIcon />
+                </IconButton>
+              </div>
+            </div>
+            <div className="content">
+              <h2>Server Picture URL</h2>
+              <input
+                placeholder="URL"
+                value={ServerURL}
+                onChange={(e) => setServerURL(e.target.value)}
+                className="serv-name"
+                style={{ background: " #CCCCCC", border: "0" }}
+              ></input>
+            </div>
+            <div className="actions">
+              <button className="join-button" onClick={submitserverpp}>
+                Set Picture
+              </button>
+            </div>
+          </div>
         </div>
       </Dialog>
 
@@ -199,6 +281,11 @@ function SideBar() {
         <div className="menu">
           <div className="menu-item" onClick={handleClickOpen}>
             Channel Link
+            <LinkIcon style={{ paddingTop: "2px" }} fontSize="small" />
+          </div>
+
+          <div className="menu-item" onClick={handleClickOpen2}>
+            Server Profile URL
             <LinkIcon style={{ paddingTop: "2px" }} fontSize="small" />
           </div>
 
@@ -223,7 +310,7 @@ function SideBar() {
           </div>
           <AddIcon className="sidebar-addChannel" />
         </div>
-        <div className="sidebar-channelsList">
+        <div className="sidebar-channelsList active">
           <SideBarChannel />
         </div>
         <div className="sidebar-channelsHeader" style={{ marginTop: "10px" }}>
@@ -302,7 +389,7 @@ function SideBar() {
             arrow={false}
           >
             <div className="menu">
-              <div className="menu-item-leave">
+              <div className="menu-item-leave" onClick={logout}>
                 Log Out
                 <MeetingRoomTwoToneIcon
                   style={{ paddingTop: "2px" }}

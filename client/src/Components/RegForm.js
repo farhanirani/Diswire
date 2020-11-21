@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { useHistory } from "react-router-dom";
-
+import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,13 +22,42 @@ function RegForm() {
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
   const [dob, setDob] = useState("");
+  const [cpassword, setCpassword] = useState("");
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleFnameChange = (e) => setfname(e.target.value);
   const handleLnameChange = (e) => setlname(e.target.value);
   const handlePassChange = (e) => setPassword(e.target.value);
   const handleEmailChange = (e) => setemail(e.target.value);
-  const handleDobChange = (e) => setDob(e.target.value);
+  const handlecPassChange = (e) => setCpassword(e.target.value);
+
+  useEffect(() => {
+    if (localStorage.getItem("auth-token")) {
+      history.push("/channles/@me");
+    }
+  }, []);
+
+  const handlelogin = async (e) => {
+    console.log(username, password);
+    try {
+      const tokenres = await axios.post("/api/user/signUp", {
+        username: username,
+        firstname: fname,
+        lastname: lname,
+        email: email,
+        password: password,
+        confirmPassword: cpassword,
+        profile_pic: "",
+      });
+
+      alert("Success, you can now login");
+      history.push("/login");
+      window.location.reload();
+    } catch (err) {
+      alert(err.response.data.message);
+      console.log(err.response.data.message);
+    }
+  };
 
   return (
     <div className="login-form">
@@ -38,7 +67,7 @@ function RegForm() {
       <div className="uname-field">
         <div className="uname-label">EMAIL</div>
         <input
-          type="text"
+          type="email"
           name=""
           id=""
           value={email}
@@ -60,37 +89,36 @@ function RegForm() {
           style={{
             justifyContent: "space-between",
             display: "flex",
-            paddingTop: "20px",
           }}
         >
-          <TextField
-            id="firstname"
-            label="FIRST NAME"
-            variant="outlined"
-            placeholder="John"
-            value={fname}
-            InputProps={{
-              classes: {
-                notchedOutline: classes.notchedOutline,
-              },
+          <div className="first__name">
+            <div className="uname-label">FIRST NAME</div>
+            <input
+              id="firstname"
+              label="FIRST NAME"
+              value={fname}
+              className="uname-input"
+              onChange={handleFnameChange}
+            />
+          </div>
+          <div
+            style={{
+              justifyContent: "space-between",
+              display: "flex",
+              paddingTop: "20px",
             }}
-            onChange={handleFnameChange}
-          />
-          <TextField
-            id="Last Name"
-            label="LAST NAME"
-            placeholder="Wick"
-            type="text"
-            variant="outlined"
-            value={lname}
-            style={{ marginLeft: "10px" }}
-            InputProps={{
-              classes: {
-                notchedOutline: classes.notchedOutline,
-              },
-            }}
-            onChange={handleLnameChange}
-          />
+          ></div>
+
+          <div className="first__name">
+            <div className="uname-label">LAST NAME</div>
+            <input
+              id="Last Name"
+              label="LAST NAME"
+              value={lname}
+              className="uname-input"
+              onChange={handleLnameChange}
+            />
+          </div>
         </div>
       </div>
       <div className="uname-field">
@@ -104,7 +132,20 @@ function RegForm() {
           onChange={handlePassChange}
         />
       </div>
+
+      <div className="uname-field">
+        <div className="uname-label">CONFIRM PASSWORD</div>
+        <input
+          type="password"
+          name=""
+          id=""
+          value={cpassword}
+          className="uname-input"
+          onChange={handlecPassChange}
+        />
+      </div>
       <Button
+        onClick={handlelogin}
         variant="contained"
         color="primary"
         style={{

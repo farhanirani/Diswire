@@ -53,5 +53,6 @@ router.get("/group/groupinvite/:groupid", auth, Group.createInvite);
 router.post("/group/groupinvite/:groupid", auth, Group.joinUsingInvite);
 router.patch("/group/changegrouptype", auth, Group.changeGroupType);
 router.get("/group/users/:groupid", auth, Group.getUsersInGroup);
+router.post("/group/updatepp/:groupid", auth, Group.updatepp);
 
 module.exports = router;

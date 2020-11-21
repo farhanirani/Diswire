@@ -3,7 +3,7 @@ import "./SideBarChannel.css";
 
 function SideBarChannel({ id, channel }) {
   return (
-    <div className="sidebarChannel">
+    <div className="sidebarChannel sidebarChannelactive">
       <h4>
         <span>#</span>General
       </h4>

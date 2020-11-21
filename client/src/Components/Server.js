@@ -81,6 +81,7 @@ function Server() {
           { headers: { "x-auth-token": token } }
         );
         history.push("/channels/" + temp.data.message);
+        window.location.reload();
       }
     } catch (err) {
       console.log(err.response.data.message);

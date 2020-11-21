@@ -1,30 +1,46 @@
 import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 function LogForm() {
   const history = useHistory();
 
   const [username, setUsername] = useState("");
-  const [fname, setfname] = useState("");
-  const [lname, setlname] = useState("");
-  const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
-  const [dob, setDob] = useState("");
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
-  const handleFnameChange = (e) => setfname(e.target.value);
-  const handleLnameChange = (e) => setlname(e.target.value);
   const handlePassChange = (e) => setPassword(e.target.value);
-  const handleEmailChange = (e) => setemail(e.target.value);
-  const handleDobChange = (e) => setDob(e.target.value);
+
+  useEffect(() => {
+    if (localStorage.getItem("auth-token")) {
+      history.push("/channels/@me");
+    }
+  }, []);
+
+  const handlelogin = async (e) => {
+    console.log(username, password);
+    try {
+      const tokenres = await axios.post("/api/user/login", {
+        userName: username,
+        password: password,
+      });
+
+      localStorage.setItem("auth-token", tokenres.data.token);
+      history.push("/channels/@me");
+      window.location.reload();
+    } catch (err) {
+      alert(err.response.data.message);
+      console.log(err.response.data.message);
+    }
+  };
 
   return (
     <div className="login-form">
       <h2 className="welcome-text">Welcome back!</h2>
       <p className="welcome-p">We're so excited to see you again!</p>
       <div className="uname-field">
-        <div className="uname-label">EMAIL OR USERNAME</div>
+        <div className="uname-label">USERNAME</div>
         <input
           type="text"
           name=""
@@ -57,6 +73,7 @@ function LogForm() {
           padding: "10px",
           fontWeight: "600",
         }}
+        onClick={handlelogin}
       >
         Login
       </Button>
