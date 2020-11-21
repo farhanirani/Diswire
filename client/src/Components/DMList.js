@@ -96,6 +96,7 @@ function DMList() {
         {friends.map((friend) => {
           return (
             <div
+              key={friend.userid}
               className="personal-dm"
               onClick={() => history.push("/channels/@me/" + friend.userid)}
             >

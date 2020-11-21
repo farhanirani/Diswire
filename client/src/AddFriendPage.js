@@ -17,7 +17,7 @@ function AddFriendsPage() {
 
   if (token) {
     return (
-      <div class="app">
+      <div className="app">
         <Servers />
         <DMList />
         <AddFriend />

@@ -133,6 +133,7 @@ function Server() {
       {servers.map((server) => {
         return (
           <div
+            key={server.g_id}
             className="tooltip server-icons "
             onClick={() => history.push("/channels/" + server.g_id)}
           >

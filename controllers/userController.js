@@ -192,8 +192,13 @@ module.exports.sendRequest = async (req, res) => {
     );
     // console.log(checkdata[0][0]);
 
-    if (checkdata[0][0]) {
-      res.status(401).json("Not authorized");
+    const checkdata2 = await db.query(
+      "SELECT * FROM user_table WHERE userid=? ",
+      [req.params.id]
+    );
+
+    if (checkdata[0][0] || !checkdata2[0][0]) {
+      res.status(401).json({ message: "Can't do this sorry" });
     } else {
       db.query(
         "INSERT INTO `personal_connections`(`userid1`, `userid2`) VALUES (?,?)",
@@ -254,7 +259,7 @@ module.exports.acceptFriendReq = async (req, res) => {
     // console.log(checkdata[0][0]);
 
     if (!checkdata[0][0]) {
-      res.status(401).json("Not authorized");
+      res.status(401).json({ message: "Not authorized" });
     } else {
       db.query(
         "UPDATE personal_connections SET friend_request='A' WHERE userid1=? AND userid2=?",
@@ -289,7 +294,7 @@ module.exports.rejectFriendReq = async (req, res) => {
     // console.log(checkdata[0][0]);
 
     if (!checkdata[0][0]) {
-      res.status(401).json("Not authorized");
+      res.status(401).json({ message: "Not authorized" });
     } else {
       db.query(
         "UPDATE personal_connections SET friend_request='R' WHERE (userid1=? AND userid2=?) OR (userid1=? AND userid2=?) ",
