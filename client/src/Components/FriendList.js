@@ -26,6 +26,21 @@ const useStyles = makeStyles((theme) => ({
 function FriendList() {
   const history = useHistory();
   const [userfriends, setuserfriends] = useState([]);
+  const token = localStorage.getItem("auth-token");
+
+  const removefriend = async (val) => {
+    console.log(val);
+
+    try {
+      const temp = await axios.post("/api/user/rejectFriend/" + val, null, {
+        headers: { "x-auth-token": token },
+      });
+      window.location.reload();
+    } catch (err) {
+      console.log(err.response.data.message);
+      alert(err.response.data.message);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -86,15 +101,7 @@ function FriendList() {
                   </Tooltip>
                   <Popup
                     trigger={
-                      <Tooltip
-                        title="More"
-                        placement="top"
-                        onClick={() =>
-                          history.push(
-                            "GAITONDE ADD POPUP THAT SAWS REMOVE FRIEND"
-                          )
-                        }
-                      >
+                      <Tooltip title="More" placement="top">
                         <div className="friend-action">
                           <MoreVertRoundedIcon
                             style={{
@@ -116,14 +123,20 @@ function FriendList() {
                     arrow={false}
                   >
                     <div className="menu">
-                      <div className="menu-item">
+                      <div
+                        className="menu-item"
+                        onClick={() => removefriend(friend.userid)}
+                      >
                         Block Friend
                         <BlockIcon
                           style={{ paddingTop: "2px" }}
                           fontSize="small"
                         />
                       </div>
-                      <div className="menu-item-leave">
+                      <div
+                        className="menu-item-leave"
+                        onClick={() => removefriend(friend.userid)}
+                      >
                         Remove Friend
                         <RemoveCircleIcon
                           style={{ paddingTop: "2px" }}

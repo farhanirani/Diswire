@@ -36,6 +36,7 @@ function AddFriend() {
       }
     }
   };
+
   return (
     <div className="chat">
       <FriendHeader />

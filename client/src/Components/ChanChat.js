@@ -65,7 +65,7 @@ function ChanChat() {
               }
             });
         })();
-      }, 1000);
+      }, 4000);
 
       return () => {
         clearInterval(interval);

@@ -22,7 +22,8 @@ import { useHistory } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import LinkIcon from "@material-ui/icons/Link";
-
+import ImageIcon from "@material-ui/icons/Image";
+import DeleteIcon from "@material-ui/icons/Delete";
 import Dialog from "@material-ui/core/Dialog";
 
 function SideBar() {
@@ -53,6 +54,8 @@ function SideBar() {
   const [channelinvite, setChannelinvite] = useState("");
   const [ServerURL, setServerURL] = useState("");
   const [userinfo, setUserinfo] = useState([]);
+  const [cuid, setCuid] = useState("");
+  const [auid, setAuid] = useState("");
 
   const logout = () => {
     localStorage.setItem("auth-token", "");
@@ -71,6 +74,7 @@ function SideBar() {
         history.push("/hello");
       } else {
         setUserinfo(tokenRes.data);
+        setCuid(tokenRes.data.userid);
       }
     })();
   }, []);
@@ -108,6 +112,7 @@ function SideBar() {
     for (var i = 0; i < servers.length; i++) {
       // eslint-disable-next-line
       if (servers[i].g_id == channelid) {
+        setAuid(servers[i].g_creator_id);
         setcurrentChannelName(servers[i].g_name);
         break;
       }
@@ -173,6 +178,23 @@ function SideBar() {
     history.push("/channels/@me");
   };
 
+  const deletechannel = async (e) => {
+    if (cuid == auid) {
+      try {
+        console.log(URL);
+        const temp = await axios.delete("/api/group/delete/" + channelid, {
+          headers: { "x-auth-token": token },
+        });
+        history.push("/channels/@me");
+      } catch (err) {
+        console.log(err.response.data.message);
+        alert(err.response.data.message);
+      }
+    } else {
+      alert("CAN'T DO THIS No No ");
+    }
+  };
+
   return (
     <div className="sidebar">
       <Dialog
@@ -232,7 +254,9 @@ function SideBar() {
           >
             <div className="create-top">
               <div className="top-left">
-                <div className="create-header">Set Server Profile Picture </div>
+                <div className="create-header">
+                  Set a Server Profile Picture
+                </div>
               </div>
               <div className="top-right">
                 <IconButton onClick={handleClose2}>
@@ -278,12 +302,10 @@ function SideBar() {
             Channel Link
             <LinkIcon style={{ paddingTop: "2px" }} fontSize="small" />
           </div>
-
           <div className="menu-item" onClick={handleClickOpen2}>
             Server Profile URL
-            <LinkIcon style={{ paddingTop: "2px" }} fontSize="small" />
+            <ImageIcon style={{ paddingTop: "2px" }} fontSize="small" />
           </div>
-
           <div className="menu-item">
             Privacy Settings
             <SecurityIcon style={{ paddingTop: "2px" }} fontSize="small" />
@@ -295,6 +317,15 @@ function SideBar() {
             Leave Channel
             <ExitToAppIcon style={{ paddingTop: "2px" }} fontSize="small" />
           </div>
+          {cuid == auid && (
+            <div
+              className="menu-item-leave"
+              onClick={(e) => deletechannel(channelid)}
+            >
+              Delete Channel
+              <DeleteIcon style={{ paddingTop: "2px" }} fontSize="small" />
+            </div>
+          )}
         </div>
       </Popup>
       <div className="sidebar-channels">

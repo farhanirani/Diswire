@@ -47,6 +47,7 @@ function PersonalChat() {
         const otheruserres = await axios.get(
           "/api/user/getusername/" + otheruserid
         );
+        console.log(otheruserres.data);
         setUserchatting(otheruserres.data.username);
       })();
     } catch (err) {
@@ -73,7 +74,7 @@ function PersonalChat() {
               }
             });
         })();
-      }, 1000);
+      }, 4000);
 
       return () => {
         clearInterval(interval);
@@ -131,7 +132,7 @@ function PersonalChat() {
 
   return (
     <div className="chat">
-      <PersonalChatHeader otheruser={userchatting} />
+      <PersonalChatHeader otheruser={userchatting} oid={otheruserid} />
       <div className="chat-messages" id="scrolldiv">
         {messages.map((message) => (
           <Message

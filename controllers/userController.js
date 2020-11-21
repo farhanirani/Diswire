@@ -187,7 +187,7 @@ module.exports.sendRequest = async (req, res) => {
 
     // check if there alreacdy is a friend request
     const checkdata = await db.query(
-      "SELECT * FROM personal_connections WHERE friend_request!='B' AND ((userid1=? AND userid2=?) OR (userid1=? AND userid2=?)) ",
+      "SELECT * FROM personal_connections WHERE (friend_request='A' OR friend_request='P') AND ((userid1=? AND userid2=?) OR (userid1=? AND userid2=?)) ",
       [req.params.id, verified.id, verified.id, req.params.id]
     );
     // console.log(checkdata[0][0]);
@@ -196,6 +196,7 @@ module.exports.sendRequest = async (req, res) => {
       "SELECT * FROM user_table WHERE userid=? ",
       [req.params.id]
     );
+    console.log(checkdata[0][0]);
 
     if (checkdata[0][0] || !checkdata2[0][0]) {
       res.status(401).json({ message: "Can't do this sorry" });
