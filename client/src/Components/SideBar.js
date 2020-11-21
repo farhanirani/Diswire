@@ -164,6 +164,7 @@ function SideBar() {
     }
     setServerURL("");
     setOpen2(false);
+    window.location.reload();
   };
 
   const leavechannel = async (e) => {
