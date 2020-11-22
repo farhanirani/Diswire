@@ -135,7 +135,7 @@ function Server() {
   return (
     <div className="servers">
       <div
-        className="tooltip server-icons active"
+        className="tooltip server-icons"
         onClick={() => history.push("/channels/@me")}
       >
         <span className="tooltiptext">Home</span>
