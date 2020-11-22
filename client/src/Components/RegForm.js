@@ -38,24 +38,26 @@ function RegForm() {
   }, []);
 
   const handlelogin = async (e) => {
+    e.preventDefault();
     console.log(username, password);
     if (!username || !fname || !lname || !email || !password || !cpassword) {
       alert("Enter all fields");
     } else {
       try {
-        const tokenres = await axios.post("/api/user/signUp", {
-          username: username,
-          firstname: fname,
-          lastname: lname,
-          email: email,
-          password: password,
-          confirmPassword: cpassword,
-          profile_pic: "",
-        });
-
-        alert("Success, you can now login");
-        history.push("/login");
-        window.location.reload();
+        await axios
+          .post("/api/user/signUp", {
+            username: username,
+            firstname: fname,
+            lastname: lname,
+            email: email,
+            password: password,
+            confirmPassword: cpassword,
+            profile_pic: "",
+          })
+          .then((res) => {
+            alert("Success, you can now login");
+            history.push("/login");
+          });
       } catch (err) {
         alert(err.response.data.message);
         console.log(err.response.data.message);
