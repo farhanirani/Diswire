@@ -54,7 +54,7 @@ function MemberList() {
                 />
                 <h3>{member.username}</h3>
               </div>
-              <div className="member-info-right">
+              {/* <div className="member-info-right">
                 <Popup
                   trigger={<MoreVertIcon className="profileicons" />}
                   position="bottom right"
@@ -74,7 +74,7 @@ function MemberList() {
                     </div>
                   </div>
                 </Popup>
-              </div>
+              </div> */}
             </div>
           );
         })}

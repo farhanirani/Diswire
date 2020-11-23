@@ -50,18 +50,22 @@ function DMList() {
 
   const handlePP = async (e) => {
     e.preventDefault();
+    console.log(URL);
     if (URL != "") {
       try {
-        console.log(URL);
-        axios.patch(
-          "/api/user/updatePP",
-          {
-            profile_pic: URL,
-          },
-          {
-            headers: { "x-auth-token": token },
-          }
-        );
+        await axios
+          .patch(
+            "/api/user/updatePP",
+            {
+              profile_pic: URL,
+            },
+            {
+              headers: { "x-auth-token": token },
+            }
+          )
+          .then((r) => {
+            window.location.reload();
+          });
       } catch (err) {
         console.log(err.response.data.message);
         alert(err.response.data.message);
