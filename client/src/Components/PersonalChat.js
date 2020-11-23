@@ -96,35 +96,39 @@ function PersonalChat() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setNowBecomeRealtime(0);
-    try {
-      (async () => {
-        axios.post(
-          "/api/messages/post/" + otheruserid,
-          {
-            messagedata: message,
-          },
-          {
-            headers: { "x-auth-token": token },
-          }
-        );
-        setmessages([
-          ...messages,
-          {
-            m_id: 100 + Math.floor(Math.random() * 101),
-            m_body: message,
-            m_sender_id: userinfo.userid,
-            m_sentat: "Now",
-            username: userinfo.username,
-            profile_pic: userinfo.profile_pic,
-          },
-        ]);
-        setNowBecomeRealtime(2);
-        setScroll(scroll + 1);
-      })();
-    } catch (err) {
-      console.log(err.response.data.message);
-      alert(err.response.data.message);
+    if (message != "") {
+      setNowBecomeRealtime(0);
+      try {
+        (async () => {
+          axios.post(
+            "/api/messages/post/" + otheruserid,
+            {
+              messagedata: message,
+            },
+            {
+              headers: { "x-auth-token": token },
+            }
+          );
+          setmessages([
+            ...messages,
+            {
+              m_id: 100 + Math.floor(Math.random() * 101),
+              m_body: message,
+              m_sender_id: userinfo.userid,
+              m_sentat: "Now",
+              username: userinfo.username,
+              profile_pic: userinfo.profile_pic,
+            },
+          ]);
+          setNowBecomeRealtime(2);
+          setScroll(scroll + 1);
+        })();
+      } catch (err) {
+        console.log(err.response.data.message);
+        alert(err.response.data.message);
+      }
+    } else {
+      alert("Please enter a message");
     }
     scrollToBottom();
     setMessage("");

@@ -87,40 +87,44 @@ function ChanChat() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setNowBecomeRealtime(0);
-    try {
-      (async () => {
-        await axios
-          .post(
-            "/api/messages/postgroup/" + channelid,
-            {
-              messagedata: message,
-            },
-            {
-              headers: { "x-auth-token": token },
-            }
-          )
-          .then((res) => {
-            setmessages([
-              ...messages,
+    if (message != "") {
+      setNowBecomeRealtime(0);
+      try {
+        (async () => {
+          await axios
+            .post(
+              "/api/messages/postgroup/" + channelid,
               {
-                m_id: 100 + Math.floor(Math.random() * 10001),
-                m_body: message,
-                m_sender_id: userinfo.userid,
-                m_sentat: "Now",
-                username: userinfo.username,
-                profile_pic: userinfo.profile_pic,
+                messagedata: message,
               },
-            ]);
-            setNowBecomeRealtime(2);
-            setScroll(scroll + 1);
-          });
-      })();
-    } catch (err) {
-      console.log(err.response.data.message);
-      alert(err.response.data.message);
+              {
+                headers: { "x-auth-token": token },
+              }
+            )
+            .then((res) => {
+              setmessages([
+                ...messages,
+                {
+                  m_id: 100 + Math.floor(Math.random() * 10001),
+                  m_body: message,
+                  m_sender_id: userinfo.userid,
+                  m_sentat: "Now",
+                  username: userinfo.username,
+                  profile_pic: userinfo.profile_pic,
+                },
+              ]);
+              setNowBecomeRealtime(2);
+              setScroll(scroll + 1);
+            });
+        })();
+      } catch (err) {
+        console.log(err.response.data.message);
+        alert(err.response.data.message);
+      }
+    } else {
+      alert("Please enter a message");
     }
-    console.log(messages.length);
+    // console.log(messages.length);
     scrollToBottom();
     setMessage("");
   };
