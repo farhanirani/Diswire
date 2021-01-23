@@ -79,8 +79,9 @@
   height: 100%;
 }
 
-img {
+.start-img {
   position: relative;
+  display: flex;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);

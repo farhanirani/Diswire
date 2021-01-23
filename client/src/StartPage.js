@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./home.css";
+import Fade from 'react-reveal/Fade'
 
 function StartPage() {
   const history = useHistory();
@@ -96,11 +97,13 @@ function StartPage() {
       <header>
         <img
           id="img2"
+          className="start-img"
           alt="test"
           src="https://discord.com/assets/7b01f72a2054561145b6dd04add417c0.svg"
         />
         <img
           id="img1"
+          className="start-img"
           alt="hello"
           src="https://discord.com/assets/e92fcc9ab6e63c1a17e954af347a1f1d.svg"
         />
@@ -122,12 +125,12 @@ function StartPage() {
         </div>
       </div>
       <section className="container-fluid px-0" style={{ maxWidth: "97%" }}>
-        <div className="row align-items-center start-content" id="myDiv">
+      <Fade left>
+        <div className="row align-items-center content" id="myDiv" style={{display:"flex"}}>
           <div className="col-md-6 order-2 order-md-1">
             <img
               src="https://discord.com/assets/c01c644bc9fa2a28678ae2f44969d248.svg"
               alt=""
-              className="img-fluid"
             />
           </div>
           <div className="col-md-6 text-center order-1 order-md-2">
@@ -152,6 +155,8 @@ function StartPage() {
             </div>
           </div>
         </div>
+        </Fade>
+        <Fade left>
         <div className="row align-items-center start-content">
           <div className="col-md-6 text-center">
             <div className="row justify-content-center">
@@ -180,6 +185,8 @@ function StartPage() {
             />
           </div>
         </div>
+        </Fade>
+        <Fade left>
         <div className="row align-items-center start-content">
           <div className="col-md-6 order-2 order-md-1">
             <img
@@ -208,6 +215,7 @@ function StartPage() {
             </div>
           </div>
         </div>
+        </Fade>
       </section>
       <section className="container-fluid px-0" id="footer">
         <h3 style={{ paddingLeft: "5%", color: "#529fe2", fontWeight: "bold" }}>
